@@ -1,5 +1,4 @@
 main:
     resource: "@eniQCMBundle/Controller/"
     type: annotation
-    prefix:   /
-
+    prefix: /

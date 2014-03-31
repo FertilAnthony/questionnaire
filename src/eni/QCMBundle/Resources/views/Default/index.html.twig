@@ -1,1 +1,18 @@
-Hello {{ name }}!
+{% extends 'eniQCMBundle::layout.html.twig' %}
+{% block body %}
+    {% if app.user and is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+        <div class="jumbotron">
+            <h1>Bonjour {{ app.user.getPrenom() }}</h1>
+            <p class="lead">Utilisez le menu en haut de la page afin de naviguer sur le site.</p>
+        </div>
+    {% else %}
+        <div class="jumbotron">
+            <h1>Questionnaires ENI</h1>
+            <p class="lead">
+            	Inscrivez-vous afin de valider vos compétences.</br>
+            	De nombreux tests sont disponibles : PHP, JAVA, SQL, Javascript ...
+            </p>
+            <p><a class="btn btn-lg btn-success inscription" href="{{ path("inscription")}}" role="button">Inscription</a></p>
+        </div>
+    {% endif %}
+{% endblock %}

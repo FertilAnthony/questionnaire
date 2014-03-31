@@ -4,6 +4,7 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
         fos_userbundle:
@@ -17,14 +18,15 @@ security:
         main:
             pattern:    ^/
             provider:   fos_userbundle
-            # form_login:
-            #     csrf_provider:  form.csrf_provider
-            #     login_path:     /connexion
-            #     check_path:     /verifie_login
-            # logout:     
-            #     path:   /deconnexion
-            #     target: /
+            form_login:
+                csrf_provider:  form.csrf_provider
+                login_path:     /connexion
+                check_path:     /verifie_login
+            logout:     
+                path:   /deconnexion
+                target: /
             anonymous:  true
 
     access_control:
-        #- { path: ^/(connexion|inscription), access: "isAnonymous()" }
+        - { path: ^/(connexion|inscription), role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, role: ROLE_ADMIN }

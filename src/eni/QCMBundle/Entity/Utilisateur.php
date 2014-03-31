@@ -14,6 +14,17 @@ use FOS\UserBundle\Entity\User;
  */
 class Utilisateur extends User
 {
+    
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->nom = 'fertil';
+        $this->prenom = 'anthony';
+        $this->type = 'formateur';
+    }
+
     /**
      * @var integer
      *
