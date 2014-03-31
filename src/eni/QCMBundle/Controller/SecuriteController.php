@@ -46,9 +46,9 @@ class SecuriteController extends Controller {
 		$lastUsername = (null === $oSession) ? '' : $oSession->get(SecurityContext::LAST_USERNAME);
 		$csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
 		$oSession->getFlashBag()->add('notice', $error);
-		
-		// on redirige vers la page d'accueil après la connexion
-		$referer = $this->generateUrl('accueil');
+
+		// on redirige vers la page d'origine(ici la page d'accueil) après la connexion
+		$referer = $oRequest->server->get('HTTP_REFERER');
 		$tRetour = array('lastUsername' => $lastUsername, 'csrf_token' => $csrfToken, 'referer' => $referer);
 
 		return $tRetour;
@@ -73,8 +73,6 @@ class SecuriteController extends Controller {
 	 * @Template()
 	 */
 	public function inscriptionAction(Request $oRequest) {
-		// TODO a supprimer
-		$this->oUserManager = $this->get('fos_user.user_manager');
 
 		$oUtilisateur = $this->oUserManager->createUser();
 		/* @var $oUtilisateur Utilisateur */

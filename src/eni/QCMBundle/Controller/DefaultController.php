@@ -20,12 +20,14 @@ class DefaultController extends Controller
 	 * @var Utilisateur
 	 */
 	private $oUtilisateurConnecte = NULL;
+	private $roles = NULL;
 
 	public function preExecute() {
 		$oSecurityContext = $this->get('security.context');
 		/* @var $oSecurityContext SecurityContext */
 		if ($oSecurityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 			$this->oUtilisateurConnecte = $oSecurityContext->getToken()->getUser();
+			$this->roles = $this->oUtilisateurConnecte->getRoles();
 		}
 	}
 
@@ -35,8 +37,12 @@ class DefaultController extends Controller
 	 */
     public function indexAction(Request $oRequest) {
 
-    	var_dump($this->oUtilisateurConnecte);
-
-        return $this->render('eniQCMBundle:Default:index.html.twig');
+    	
+    	if (isset($this->roles) && in_array('ROLE_ADMIN', $this->roles)) {
+    		var_dump($this->roles);
+    		return $this->redirect($this->generateUrl('admin_menu'));
+    	} else {
+    		return $this->render('eniQCMBundle:Default:index.html.twig');
+    	}
     }
 }

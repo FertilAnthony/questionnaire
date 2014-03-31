@@ -1,0 +1,26 @@
+{% extends 'eniQCMBundle::layout.html.twig' %}
+
+{% block body %}
+	<div class="jumbotron">
+       	<h1>Bonjour {{ app.user.getPrenom() }}</h1>
+        <p class="lead">Bienvenue dans le menu de gestion des questionnaires.</p>
+    </div>
+	<h2>Administration</h2>
+	<ul class="list-group">
+		<li class="list-group-item">
+			<a href="#">Gestion des inscriptions</a>
+		</li>
+		<li class="list-group-item">
+			<a href="#">Gestion des promotions</a>
+		</li>
+		<li class="list-group-item">
+			<a href="#">Gestion des utilisateurs</a>
+		</li>
+		<li class="list-group-item">
+			<a href="#">Gestion des thèmes</a>
+		</li>
+		<li class="list-group-item">
+			<a href="#">Gestion des tests</a>
+		</li>
+	</ul>
+{% endblock %}

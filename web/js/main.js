@@ -34,3 +34,11 @@ require.config({
         }
     }
 });
+
+require(['jquery', 'bootstrap'],
+    function($) {
+        $(function() {
+
+        });
+    }
+);
