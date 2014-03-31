@@ -11,11 +11,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\Common\Collections\ArrayCollection;
 use eni\QCMBundle\Entity\Test;
 use eni\QCMBundle\Form\Type\TestType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("admin/test")
  */
-class AdminController extends Controller
+class TestController extends Controller
 {
     
 	/**
@@ -41,12 +42,13 @@ class AdminController extends Controller
     {
         
     	$test = new Test();
-    	$test->setFormateur($oUtilisateurConnecte);
+    	$test->setFormateur($this->oUtilisateurConnecte);
 
-    	if ($request->getMethode() == "POST") {
-    		// Création du formulaire
-	    	$form = $this->createForm(new TestType(), $test);
-	    	$form->handleRequest($request);
+    	// Création du formulaire
+    	$form = $this->createForm(new TestType(), $test);
+    	$form->handleRequest($request);
+
+    	if ($request->getMethod() == "POST") {
 
 	    	if ($form->isValid()) {
 	    		$em = $this->getDoctrine()->getManager();
@@ -61,6 +63,6 @@ class AdminController extends Controller
 	    }
 
         return $this->render('eniQCMBundle:Test:create.html.twig', array(
-        	'form' => $form->createForm));
+        	'form' => $form->createView()));
     }
 }

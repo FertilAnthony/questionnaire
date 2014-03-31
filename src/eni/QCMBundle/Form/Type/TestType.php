@@ -15,17 +15,18 @@ class TestType extends AbstractType {
 					'label' => 'Libellé',
 					'attr' => array('class' => 'form-control')
 				))
-				->add('description ', 'textarea', array(
+				->add('description', 'textarea', array(
 					'label' => 'Description',
 					'attr' => array('class' => 'form-control'),
 					'required' => false
 				))
 				->add('duree', 'time', array(
-					'label' => 'Mot de passe',
+					'label' => 'Durée',
 					'attr' => array('class' => 'form-control')
 				))
 				->add('seuil', 'integer', array(
-					'rouding_mode' => IntegerToLocalizedStringTransformer::ROUND_DOWN
+					'rounding_mode' => IntegerToLocalizedStringTransformer::ROUND_DOWN,
+					'attr' => array('class' => 'form-control')
 				))
 				->add('sections', 'collection', array(
 					'required' => 'false',
@@ -33,8 +34,9 @@ class TestType extends AbstractType {
 					'allow_add' => true,
 					'allow_delete' => true,
 					'by_reference' => false,
+					'attr' => array('class' => 'form-control')
 					
-		;
+				));
 	}
 
 	public function getName() {

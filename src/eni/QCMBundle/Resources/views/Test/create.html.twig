@@ -5,6 +5,7 @@ Administration des tests
 {% endblock %}
 
 {% block body %}
+	<h2>Création d'un test</h2> 
 	<form id="createTest" action="{{ path('test_create') }}" method="post">
 		{{form_widget(form) }}
 		<input type="submit" class="btn btn-primary" value="Valider">
