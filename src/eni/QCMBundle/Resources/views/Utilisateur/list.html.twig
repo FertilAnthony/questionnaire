@@ -4,13 +4,14 @@
 	Liste des utilisateurs
 {% endblock %}
 
-{% block body %}
+{% block js %}
+    {{ parent() }}
+{% endblock %}
 
+{% block content %}
 
 <script type="text/javascript">
-	var listeUtilisateurs = {{ listeUtilisateurs|json_encode|raw }};
-	console.log(listeUtilisateurs);
-
+console.log("utilisateur");
 require([
     'user_paginated_collection',
     'user_app_view',
@@ -22,9 +23,17 @@ require([
     UtilisateurPaginationView,
     UtilisateurNavigationView
 ) {
-
+    // Defer initialization until doc ready.
     $(function() {
-        var collection = new UtilisateurPaginatedCollection();
+        console.log("pass");
+      /*var collection = new UtilisateurPaginatedCollection({{listeUtilisateurs|json_encode|raw }}, {
+        displayPerPage: 5
+      });*/
+
+      /*var listView = new UtilisateurAppView({collection: collection});
+      var paginationView = new UtilisateurPaginationView({collection: collection});
+      var navigationView = new UtilisateurNavigationView({collection: collection});
+      collection.pager();*/
     });
 });
 </script>

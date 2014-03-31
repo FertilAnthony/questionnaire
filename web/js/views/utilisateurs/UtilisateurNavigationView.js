@@ -1,11 +1,9 @@
 define([
     'backbone',
-    'underscore',
-    'jquery'
+    'underscore'
 ], function(
         Backbone,
-        _,
-        $
+        _
         ) {
     var UtilisateurNavigationView = Backbone.View.extend({
         el: '.utilisateur',

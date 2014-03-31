@@ -21,12 +21,13 @@ define([
         sortField: undefined,
         // what direction should the results be sorted in?
         sortDirection: 'asc',
-        filterThematicValue: undefined,
+
         initialize: function(models, options) {
             options = _.defaults(options || {}, {
                 displayPerPage: 5
             });
             this.displayPerPage = options.displayPerPage;
+            console.log(this);
         },
         nextPage: function() {
             var self = this;

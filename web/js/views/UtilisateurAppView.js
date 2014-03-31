@@ -1,9 +1,8 @@
 define([
-    'jquery',
     'underscore',
     'backbone',
     'user_view'
-], function($, _, Backbone, UtilisateurView) {
+], function(_, Backbone, UtilisateurView) {
     var UtilisateurAppView = Backbone.View.extend({
         el: '#utilisateur-list',
         events: {

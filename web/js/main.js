@@ -40,4 +40,4 @@ require.config({
     }
 });
 
-require(['jquery', 'bootstrap']);
+require(['bootstrap']);

@@ -2,7 +2,7 @@
 
 {% block title %}Connexion{% endblock %}
 
-{% block body %}
+{% block content %}
 <form id="form-login" action="{{ path('verifie_login') }}" method="POST" class="form-horizontal">
     {% for flashMessage in app.session.flashbag.get('notice') %}
     {% if flashMessage != '' %}

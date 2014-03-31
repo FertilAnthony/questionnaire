@@ -1,7 +1,7 @@
 define([
     'underscore',
     'backbone'
-], function($, _, Backbone) {
+], function(_, Backbone) {
 
     var UtilisateurView = Backbone.View.extend({
         el: '.utilisateur',

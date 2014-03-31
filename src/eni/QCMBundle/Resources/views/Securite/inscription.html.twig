@@ -2,7 +2,7 @@
 
 {% block title %}Inscription{% endblock %}
 
-{% block body %}
+{% block content %}
 <form id="inscription-utilisateur" action="{{ path('inscription') }}" method="POST" class="form-horizontal" role="form">
     {{ form_row(form.username) }}
     {{ form_row(form.email) }}

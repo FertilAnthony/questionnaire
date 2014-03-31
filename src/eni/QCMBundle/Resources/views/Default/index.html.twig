@@ -1,5 +1,5 @@
 {% extends 'eniQCMBundle::layout.html.twig' %}
-{% block body %}
+{% block content %}
     {% if app.user and is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
         <div class="jumbotron">
             <h1>Bonjour {{ app.user.getPrenom() }}</h1>
