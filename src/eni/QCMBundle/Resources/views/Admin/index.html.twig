@@ -6,21 +6,11 @@
         <p class="lead">Bienvenue dans le menu de gestion des questionnaires.</p>
     </div>
 	<h2>Administration</h2>
-	<ul class="list-group">
-		<li class="list-group-item">
-			<a href="#">Gestion des inscriptions</a>
-		</li>
-		<li class="list-group-item">
-			<a href="#">Gestion des promotions</a>
-		</li>
-		<li class="list-group-item">
-			<a href="#">Gestion des utilisateurs</a>
-		</li>
-		<li class="list-group-item">
-			<a href="#">Gestion des thèmes</a>
-		</li>
-		<li class="list-group-item">
-			<a href="#">Gestion des tests</a>
-		</li>
-	</ul>
+	<div class="list-group">
+			<a href="#" class="list-group-item">Gestion des inscriptions</a>
+			<a href="#" class="list-group-item">Gestion des promotions</a>
+			<a href="{{ path('user_list') }}" class="list-group-item">Gestion des utilisateurs</a>
+			<a href="#" class="list-group-item">Gestion des thèmes</a>
+			<a href="#" class="list-group-item">Gestion des tests</a>
+	</div>
 {% endblock %}

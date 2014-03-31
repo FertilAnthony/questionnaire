@@ -7,9 +7,14 @@ require.config({
         'bootstrap': 'lib/bootstrap.min',
         'bootstrap-datepicker': 'lib/bootstrap-datepicker',
         // Models
+        'user_model': 'models/UtilisateurModel',
         // Collections
+        'user_paginated_collection': 'collections/UtilisateurPaginatedCollection',
         // Views
-
+        'user_app_view': 'views/UtilisateurAppView',
+        'user_view': 'views/utilisateurs/UtilisateurView',
+        'user_pagination_view': 'views/utilisateurs/UtilisateurPaginationView',
+        'user_navigation_view': 'views/utilisateurs/UtilisateurNavigationView'
     },
     shim: {
         'underscore': {
@@ -35,10 +40,4 @@ require.config({
     }
 });
 
-require(['jquery', 'bootstrap'],
-    function($) {
-        $(function() {
-
-        });
-    }
-);
+require(['jquery', 'bootstrap']);

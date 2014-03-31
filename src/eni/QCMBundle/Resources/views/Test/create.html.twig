@@ -1,0 +1,12 @@
+{% extends 'eniQCMBundle::layout.html.twig' %}
+
+{% block title %}
+Administration des tests
+{% endblock %}
+
+{% block body %}
+	<form id="createTest" action="{{ path('test_create') }}" method="post">
+		{{form_widget(form) }}
+		<input type="submit" class="btn btn-primary" value="Valider">
+	</form>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'eniQCMBundle::layout.html.twig' %}
+
+{% block title %}
+	Liste des utilisateurs
+{% endblock %}
+
+{% block body %}
+
+
+<script type="text/javascript">
+	var listeUtilisateurs = {{ listeUtilisateurs|json_encode|raw }};
+	console.log(listeUtilisateurs);
+
+require([
+    'user_paginated_collection',
+    'user_app_view',
+    'user_pagination_view',
+    'user_navigation_view'
+], function(
+    UtilisateurPaginatedCollection,
+    UtilisateurAppView,
+    UtilisateurPaginationView,
+    UtilisateurNavigationView
+) {
+
+    $(function() {
+        var collection = new UtilisateurPaginatedCollection();
+    });
+});
+</script>
+{% endblock %}
