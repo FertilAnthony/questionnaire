@@ -1,5 +1,5 @@
 /*Ajout effet hover sur bouton*/
-.btn {
+.btn, .update-theme {
 	-webkit-transition-property:background color;
 	-webkit-transition-duration:0.25s;
 	-webkit-transition-timing-function:linear;
@@ -9,4 +9,21 @@
 	transition-property:background color;
 	transition-duration:0.25s;
 	transition-timing-function:linear;
+}
+
+.theme {
+	margin-top: 20px;
+}
+
+.update-theme {
+	font-size: 18px;
+	padding-left: 20px;
+	cursor: pointer;
+}
+.update-theme:hover {
+	color: #47A447;
+}
+
+th.theme, td.theme {
+	text-align: center;
 }

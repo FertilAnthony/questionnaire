@@ -21,8 +21,9 @@
     <table class="theme table table-hover table-striped">
         <thead>
             <tr>
-                <th class="membre" data-attribute="id"> Identifiant </th>
-                <th class="membre" data-attribute="libelle"> Libellé </th>
+                <th class="theme" data-attribute="id"> Identifiant </th>
+                <th class="theme" data-attribute="libelle"> Libellé </th>
+                <th class="theme" data-attribute="update"> Modifier/Supprimer </th>
             </tr>
         </thead>
         <tbody id="theme-list"></tbody>
@@ -32,8 +33,11 @@
 <script type="text/template" id="themes-list-template">
 	<% themes.each(function(theme) { %>
 		<tr>
-        	<td class="id"><%= theme.get('id') %></td>
-        	<td class="libelle"><%= theme.get('libelle') %></td>
+        	<td class="id theme"><%= theme.get('id') %></td>
+        	<td class="libelle theme"><%= theme.get('libelle') %></td>
+        	<td class="update theme">
+        		<span class="update-theme glyphicon glyphicon-refresh"></span>
+        		<span class="update-theme glyphicon glyphicon-trash"></span>
     	</tr>
     <% }); %>
 </script>
