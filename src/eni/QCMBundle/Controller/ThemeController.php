@@ -34,8 +34,30 @@ class ThemeController extends Controller
 		}
 	}
 
+	/**
+	* @Route("/liste_theme", name="theme_list", options={"expose"=true})
+	* @Template()
+	*/
+	public function listAction(Request $request) {
+		$themeRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:Theme');
+		$allThemes = $themeRepository->findAll();
+
+		$listeThemes = [];
+		foreach($allThemes as $theme) {
+			$listeThemes[] = [
+				'id' => $theme->getId(),
+				'libelle' => $theme->getLibelle()
+			];
+		}
+
+		return $this->render('eniQCMBundle:Theme:list.html.twig', array(
+			'listeThemes' => $listeThemes
+		));
+	}
+
+
     /**
-     * @Route("/creer", name="theme_create", options={"expose"=true})
+     * @Route("/creer_theme", name="theme_create", options={"expose"=true})
      * @Template()
      */
     public function createAction(Request $request)

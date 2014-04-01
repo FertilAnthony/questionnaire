@@ -35,7 +35,7 @@ class TestController extends Controller
 	}
 
     /**
-     * @Route("/creer", name="test_create", options={"expose"=true})
+     * @Route("/creer_test", name="test_create", options={"expose"=true})
      * @Template()
      */
     public function createAction(Request $request)
