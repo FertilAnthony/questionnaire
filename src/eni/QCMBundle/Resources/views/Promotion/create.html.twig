@@ -1,0 +1,13 @@
+{% extends 'eniQCMBundle::layout.html.twig' %}
+
+{% block title %}
+Administration des promotions
+{% endblock %}
+
+{% block content %}
+	<h2>Création d'une promotion</h2> 
+	<form id="createPromo" action="{{ path('promo_create') }}" method="post" role='form' class='form-horizontal'>
+		{{form_widget(form) }}
+		<input type="submit" class="btn btn-primary" value="Valider">
+	</form>
+{% endblock %}
