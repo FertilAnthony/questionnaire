@@ -9,14 +9,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\Common\Collections\ArrayCollection;
-use eni\QCMBundle\Entity\Test;
-use eni\QCMBundle\Form\Type\TestType;
+use eni\QCMBundle\Entity\Theme;
+use eni\QCMBundle\Form\Type\ThemeType;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Route("admin/test")
+ * @Route("admin/theme")
  */
-class TestController extends Controller
+class ThemeController extends Controller
 {
     
 	/**
@@ -35,32 +35,31 @@ class TestController extends Controller
 	}
 
     /**
-     * @Route("/creer", name="test_create", options={"expose"=true})
+     * @Route("/creer", name="theme_create", options={"expose"=true})
      * @Template()
      */
     public function createAction(Request $request)
     {
         
-    	$test = new Test();
-    	$test->setFormateur($this->oUtilisateurConnecte);
+    	$theme = new Theme();
 
     	// Création du formulaire
-    	$form = $this->createForm(new TestType(), $test);
+    	$form = $this->createForm(new ThemeType(), $theme);
     	$form->handleRequest($request);
 
     	if ($request->getMethod() == "POST") {
 
 	    	if ($form->isValid()) {
 	    		$em = $this->getDoctrine()->getManager();
-	    		$em->persist($test);
+	    		$em->persist($theme);
 	    		$em->flush();
 
-	    		// TODO : Rediriger vers la liste des tests
+	    		// TODO : Rediriger vers la liste des thèmes
 	    		return $this->redirect($this->generateUrl('accueil'));
 	    	}
 	    }
 
-        return $this->render('eniQCMBundle:Test:create.html.twig', array(
+        return $this->render('eniQCMBundle:Theme:create.html.twig', array(
         	'form' => $form->createView()));
     }
 }

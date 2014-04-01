@@ -6,35 +6,104 @@
 
 {% block js %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/models/UtilisateurModel.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/collections/UtilisateurPaginatedCollection.js') }}"></script>
+    <script type="text/javascript" scr="{{ asset('js/views/utilisateurs/UtilisateurView.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/views/UtilisateurAppView.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/views/utilisateurs/UtilisateurNavigationView.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/views/utilisateurs/UtilisateurPaginationView.js') }}"></script>
 {% endblock %}
 
 {% block content %}
 
-<script type="text/javascript">
-console.log("utilisateur");
-require([
-    'user_paginated_collection',
-    'user_app_view',
-    'user_pagination_view',
-    'user_navigation_view'
-], function(
-    UtilisateurPaginatedCollection,
-    UtilisateurAppView,
-    UtilisateurPaginationView,
-    UtilisateurNavigationView
-) {
-    // Defer initialization until doc ready.
-    $(function() {
-        console.log("pass");
-      /*var collection = new UtilisateurPaginatedCollection({{listeUtilisateurs|json_encode|raw }}, {
-        displayPerPage: 5
-      });*/
+<h2>Liste de tous les utilisateurs</h2>
 
-      /*var listView = new UtilisateurAppView({collection: collection});
-      var paginationView = new UtilisateurPaginationView({collection: collection});
-      var navigationView = new UtilisateurNavigationView({collection: collection});
-      collection.pager();*/
-    });
+<div id="utilisateur-navigation"></div>
+    <div class="table-responsive">
+        <table class="utilisateur table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th class="membre" data-attribute="id"> Identifiant </th>
+                    <th class="membre" data-attribute="nom"> Nom </th>
+                    <th class="membre" data-attribute="prenom"> Prénom </th>
+                    <th class="membre" data-attribute="email"> Email </th>
+                </tr>
+            </thead>
+            <tbody id="utilisateur-list"></tbody>
+        </table>
+    </div>
+    {% block footer %}
+    <div id="utilisateur-pagination"></div>
+    {% endblock %}
+
+<script type="text/template" id="utilisateur-pagination-template">
+    <% if (totalRecords != 0) { %>
+        <span class="cell last pages">
+            <% if (page != 1) { %>
+                <a href="#" class="first">Première Page </a>
+                <% if (page != 2) { %>
+                    <a href="#" class="prev">Page Précédente</br></a>
+               <% } %>
+            <% } %>
+            <% _.each (pageSet, function (p) { %>
+                <% if (page == p) { %>
+                    <span class="page selected"><%= p %></span>
+                <% } else { %>
+                    <a href="#" class="page"><%= p %></br></a>
+                <% } %>
+            <% }); %>
+            <% if (lastPage != page) { %>
+                <a href="#" class="next">Page Suivante </a>
+                <a href="#" class="last">Dernière Page</br></a>
+            <% } %>
+        </span>
+
+        <span class="cell howmany">
+            Afficher
+            <a href="#" class="selected">20</a>
+            |
+            <a href="#" class="">50</a>
+            |
+            <a href="#" class="">100</br></a>
+        </span>
+
+        <span class="cell first records">
+                <span class="current"><%= startRecord %></span>
+                -
+                <span class="perpage"><%= endRecord %></span>
+                sur
+                <span class="total"><%= totalRecords %></span>
+                affiché
+        </span>
+    <% } else { %>
+        <div class="noData"> Aucun utilisateur inscrit</div>
+    <% } %>
+</script>
+
+<script type="text/template" id="utilisateur-list-template">
+    <tr>
+        <td class="id"><%= user.id %></td>
+        <td class="nom"> <%= user.nom %> </td>
+        <td class="prenom"> <%= user.prenom %> </td>
+        <td class="email"> <%= user.email %> </td>
+    </tr>
+</script>
+
+<script type="text/javascript">
+
+// Defer initialization until doc ready.
+$(function() {
+
+  var collection = new UtilisateurPaginatedCollection({{listeUtilisateurs|json_encode|raw }}, {
+    displayPerPage: 20
+  });
+  console.log(collection);
+
+  var listView = new UtilisateurAppView({collection: collection});
+  var paginationView = new UtilisateurPaginationView({collection: collection});
+  var navigationView = new UtilisateurNavigationView({collection: collection});
+  collection.pager();
 });
+
 </script>
 {% endblock %}

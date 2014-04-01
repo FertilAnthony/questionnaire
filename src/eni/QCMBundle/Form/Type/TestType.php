@@ -12,29 +12,24 @@ class TestType extends AbstractType {
 	public function buildForm(FormBuilderInterface $oBuilder, array $tOptions) {
 		$oBuilder
 				->add('nom', 'text', array(
-					'label' => 'Libellé',
-					'attr' => array('class' => 'form-control')
+					'label' => 'Libellé'
 				))
 				->add('description', 'textarea', array(
 					'label' => 'Description',
-					'attr' => array('class' => 'form-control'),
 					'required' => false
 				))
 				->add('duree', 'time', array(
-					'label' => 'Durée',
-					'attr' => array('class' => 'form-control')
+					'label' => 'Durée'
 				))
 				->add('seuil', 'integer', array(
-					'rounding_mode' => IntegerToLocalizedStringTransformer::ROUND_DOWN,
-					'attr' => array('class' => 'form-control')
+					'rounding_mode' => IntegerToLocalizedStringTransformer::ROUND_DOWN
 				))
 				->add('sections', 'collection', array(
 					'required' => 'false',
 					'type' => new SectionType(),
 					'allow_add' => true,
 					'allow_delete' => true,
-					'by_reference' => false,
-					'attr' => array('class' => 'form-control')
+					'by_reference' => false
 					
 				));
 	}

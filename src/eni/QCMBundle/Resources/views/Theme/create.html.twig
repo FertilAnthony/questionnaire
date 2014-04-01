@@ -1,12 +1,12 @@
 {% extends 'eniQCMBundle::layout.html.twig' %}
 
 {% block title %}
-Administration des tests
+Administration des thèmes
 {% endblock %}
 
 {% block content %}
-	<h2>Création d'un test</h2> 
-	<form id="createTest" action="{{ path('test_create') }}" method="post" role='form' class='form-horizontal'>
+	<h2>Création d'un thème</h2> 
+	<form id="createTheme" action="{{ path('theme_create') }}" method="post" role='form' class='form-horizontal'>
 		{{form_widget(form) }}
 		<input type="submit" class="btn btn-primary" value="Valider">
 	</form>

@@ -13,12 +13,10 @@ class SectionType extends AbstractType {
 		$oBuilder
 				->add('theme', 'entity', array(
 					'label' => 'Thème',
-					'class' => 'eniQCMBundle:Theme',
-					'attr' => array('class' => 'form-control')
+					'class' => 'eniQCMBundle:Theme'
 				))
 				->add('nbQuestion', 'integer', array(
 					'label' => 'Nombre de questions',
-					'attr' => array('class' => 'form-control'),
 					'rounding_mode' => IntegerToLocalizedStringTransformer::ROUND_DOWN
 				))
 					
