@@ -69,7 +69,7 @@ class SecuriteController extends Controller {
 	}
 
 	/**
-	 * @Route("/inscription", name="inscription", options={"expose"=true})
+	 * @Route("admin/inscription", name="inscription", options={"expose"=true})
 	 * @Template()
 	 */
 	public function inscriptionAction(Request $oRequest) {
