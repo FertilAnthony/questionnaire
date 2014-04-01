@@ -1,0 +1,5 @@
+ALTER TABLE utilisateur ADD code_promo VARCHAR(8) DEFAULT NULL, CHANGE type type
+ VARCHAR(64) NOT NULL;
+ALTER TABLE utilisateur ADD CONSTRAINT FK_1D1C63B35C4683B7 FOREIGN KEY (code_pro
+mo) REFERENCES promotions (code_promo);
+CREATE UNIQUE INDEX UNIQ_1D1C63B35C4683B7 ON utilisateur (code_promo);
