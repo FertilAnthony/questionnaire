@@ -1,5 +1,5 @@
 /*Ajout effet hover sur bouton*/
-.inscription, .valider {
+.btn {
 	-webkit-transition-property:background color;
 	-webkit-transition-duration:0.25s;
 	-webkit-transition-timing-function:linear;

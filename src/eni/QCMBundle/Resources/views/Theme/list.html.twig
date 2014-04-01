@@ -15,6 +15,8 @@
 
 <h2>Liste des Thèmes</h2>
 
+<a class="btn btn-success" href="{{ path('theme_create') }}">Ajouter thème</a>
+
 <div class="table-responsive">
     <table class="theme table table-hover table-striped">
         <thead>
@@ -29,8 +31,6 @@
 
 <script type="text/template" id="themes-list-template">
 	<% themes.each(function(theme) { %>
-		<%=console.log(theme.id) %>
-		<%=console.log(theme.libelle) %>
 		<tr>
         	<td class="id"><%= theme.get('id') %></td>
         	<td class="libelle"><%= theme.get('libelle') %></td>
