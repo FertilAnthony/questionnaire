@@ -75,7 +75,7 @@ class PromotionController extends Controller
 	    		$em->flush();
 
 	    		// TODO : Rediriger vers la liste des promo
-	    		return $this->redirect($this->generateUrl('accueil'));
+	    		return $this->redirect($this->generateUrl('promo_list'));
 	    	}
 	    }
 

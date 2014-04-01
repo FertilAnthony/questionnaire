@@ -5,6 +5,7 @@ namespace eni\QCMBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class UtilisateurType extends AbstractType {
 
@@ -36,7 +37,15 @@ class UtilisateurType extends AbstractType {
 					'choices' => array('formateur' => 'Formateur', 'stagiaire' => 'Stagiaire'),
 					'preferred_choices' => array('stagiaire')
 				))
-				
+				// TODO -> Penser à récupérer le codePromo
+				->add('promotion', 'entity', array(
+					'label' => 'Promotion',
+					'class' => 'eniQCMBundle:Promotion',
+					'query_builder' => function(EntityRepository $er) {
+        				return $er->createQueryBuilder('p')
+            					->orderBy('p.codePromo', 'ASC');
+    				},
+				))
 		;
 	}
 
