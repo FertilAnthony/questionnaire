@@ -40,7 +40,7 @@ class TestController extends Controller
      */
     public function createAction(Request $request)
     {
-        
+        // TODO tester affichage message erreur
     	$test = new Test();
     	$test->setFormateur($this->oUtilisateurConnecte);
 
@@ -49,7 +49,6 @@ class TestController extends Controller
     	$form->handleRequest($request);
 
     	if ($request->getMethod() == "POST") {
-
 	    	if ($form->isValid()) {
 	    		$em = $this->getDoctrine()->getManager();
 	    		$em->persist($test);

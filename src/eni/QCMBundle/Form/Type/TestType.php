@@ -40,7 +40,8 @@ class TestType extends AbstractType {
 
 	public function setDefaultOptions(OptionsResolverInterface $resolver) {
 		$resolver->setDefaults(array(
-			'data_class' => 'eni\QCMBundle\Entity\Test'
+			'data_class' => 'eni\QCMBundle\Entity\Test',
+			'cascade_validation' => true
 		));
 	}
 }

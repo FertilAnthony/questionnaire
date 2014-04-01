@@ -1,4 +1,9 @@
 {% extends 'eniQCMBundle::layout.html.twig' %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
 {% block content %}
     {% if app.user and is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
         <div class="jumbotron">
