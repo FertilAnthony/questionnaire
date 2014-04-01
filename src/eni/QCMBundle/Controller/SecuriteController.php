@@ -83,7 +83,7 @@ class SecuriteController extends Controller {
 			$oForm->submit($oRequest);
 			if ($oForm->isValid()) {
 				if ($this->traitementFormulaireInscription($oForm)) {
-					$this->connecterUtilisateur($oUtilisateur);
+					//$this->connecterUtilisateur($oUtilisateur);
 					return $this->redirect($this->generateUrl('accueil'));
 				}
 			}
@@ -121,7 +121,7 @@ class SecuriteController extends Controller {
 	 * Fonction permettant de connecter l'utilisateur après une inscription réussie
 	 * @param \MyEvents\MainBundle\Entity\Utilisateur $oUtilisateur
 	 */
-	private function connecterUtilisateur(Utilisateur $oUtilisateur) {
+	/*private function connecterUtilisateur(Utilisateur $oUtilisateur) {
 		$oToken = new UsernamePasswordToken($oUtilisateur, $oUtilisateur->getPassword(), 'main', $oUtilisateur->getRoles());
 		$this->get('security.context')->setToken($oToken);
 
@@ -129,6 +129,6 @@ class SecuriteController extends Controller {
 		// Logging the user in above the way we do it doesn't do this automatically
 		$event = new InteractiveLoginEvent($this->getRequest(), $oToken);
 		$this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
-	}
+	}*/
 
 }

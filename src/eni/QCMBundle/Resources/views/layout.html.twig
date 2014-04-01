@@ -67,7 +67,7 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utilisateur <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Créer</a></li>
+                                    <li><a href="{{ path('inscription') }}">Créer</a></li>
                                     <li><a href="{{ path('user_list') }}">lister</a></li>
                                 </ul>
                             </li>
@@ -80,6 +80,7 @@
                             </li>
                         {% endif %}
                         {% if app.user %}
+                            <li><a href="#">Profil</a></li>
                             <li><a href="{{ path("deconnexion")}}">Déconnexion</a></li>
                         {% else %}
                             <li><a href="{{ path("connexion")}}">Connexion</a></li>
