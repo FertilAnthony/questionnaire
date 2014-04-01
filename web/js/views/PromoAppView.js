@@ -1,5 +1,5 @@
-var ThemeAppView = Backbone.View.extend({
-    el: '#theme-list',
+var PromoAppView = Backbone.View.extend({
+    el: '#promo-list',
     events: {
 
     },
@@ -10,13 +10,13 @@ var ThemeAppView = Backbone.View.extend({
         collection.on('change', this.render, this);
         collection.on('destroy', this.remove, this);
 
-        this.template = _.template($('#themes-list-template').html());
+        this.template = _.template($('#promos-list-template').html());
     },
     render: function() {
         var self = this;
 
         this.$el.html(self.template({
-            themes: self.collection
+            promos: self.collection
         }));
 
         return this;

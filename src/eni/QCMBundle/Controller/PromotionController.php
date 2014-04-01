@@ -34,6 +34,27 @@ class PromotionController extends Controller
 		}
 	}
 
+	/**
+	* @Route("/liste_promo", name="promo_list", options={"expose"=true})
+	* @Template()
+	*/
+	public function listAction(Request $request) {
+		$promoRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:Promotion');
+		$allPromos = $promoRepository->findAll();
+
+		$listePromos = [];
+		foreach($allPromos as $promo) {
+			$listePromos[] = [
+				'id' => $promo->getCodePromo(),
+				'libelle' => $promo->getLibelle()
+			];
+		}
+
+		return $this->render('eniQCMBundle:Promotion:list.html.twig', array(
+			'listePromos' => $listePromos
+		));
+	}
+
     /**
      * @Route("/creer_promo", name="promo_create", options={"expose"=true})
      * @Template()

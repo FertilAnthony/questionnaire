@@ -1,5 +1,5 @@
 /*Ajout effet hover sur bouton*/
-.btn, .update-theme {
+.btn, .update-theme, .update-promo {
 	-webkit-transition-property:background color;
 	-webkit-transition-duration:0.25s;
 	-webkit-transition-timing-function:linear;
@@ -15,21 +15,21 @@
 	padding-right: 5px;
 }
 
-/* Thème */
-.theme {
-	margin-top: 20px;
+/* Thème / Promotion */
+.theme, .promo {
+	margin-top: 40px;
 }
 
-.update-theme {
+.update-theme, .update-promo {
 	font-size: 18px;
 	padding-left: 20px;
 	cursor: pointer;
 }
-.update-theme:hover {
+.update-theme:hover, .update-promo:hover {
 	color: #47A447;
 }
 
-th.theme, td.theme {
+th.theme, td.theme, th.promo, td.promo {
 	text-align: center;
 }
 
@@ -47,9 +47,4 @@ th.theme, td.theme {
 }
 .sections .section.close {
 	display: none;
-}
-
-/* Promotions */
-#promotion {
-	margin-top: 30px;
 }
