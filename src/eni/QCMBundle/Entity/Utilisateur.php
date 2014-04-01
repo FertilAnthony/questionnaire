@@ -5,6 +5,7 @@ namespace eni\QCMBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Utilisateur
@@ -20,9 +21,6 @@ class Utilisateur extends User
      */
     public function __construct() {
         parent::__construct();
-        $this->nom = 'fertil';
-        $this->prenom = 'anthony';
-        $this->type = 'formateur';
     }
 
     /**
@@ -48,10 +46,19 @@ class Utilisateur extends User
      */
     private $prenom;
 
-    /**
+   /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=65)
+     * @ORM\ManyToOne(targetEntity="Promotion", inversedBy="stagiaires")
+     * @ORM\JoinColumn(name="code_promo", referencedColumnName="code_promo", unique=true)
+     */
+    private $promotion;
+
+    /**
+     * @var string
+     * @ORM\Column(name="type", type="string", length=64)
+     *
+     * @Assert\Choice(choices = {"formateur", "stagiaire"})
      */
     private $type;
 
@@ -113,22 +120,33 @@ class Utilisateur extends User
     }
 
     /**
-     * Set type
-     *
+     * Set Promotion
+     * @param Promotion $promotion
+     */
+    public function setPromotion($promotion)
+    {
+        $this->promotion = $promotion;
+    }
+
+    /**
+     * Get Promotion
+     * @return Promotion
+     */
+    public function getPromotion()
+    {
+        return $this->promotion;
+    }
+
+    /**
      * @param string $type
-     * @return Utilisateur
      */
     public function setType($type)
     {
         $this->type = $type;
-
-        return $this;
     }
 
     /**
-     * Get type
-     *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
