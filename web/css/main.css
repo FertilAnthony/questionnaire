@@ -11,6 +11,11 @@
 	transition-timing-function:linear;
 }
 
+.glyphicon-plus, .glyphicon-minus {
+	padding-right: 5px;
+}
+
+/* Thème */
 .theme {
 	margin-top: 20px;
 }
@@ -26,4 +31,20 @@
 
 th.theme, td.theme {
 	text-align: center;
+}
+
+/* Test */
+#createTest {
+	margin-top: 40px;
+}
+.createTest {
+	display: block !important;
+	margin-top: 40px;
+}
+.sections .section {
+	margin-top: 15px;
+	list-style-type: none;
+}
+.sections .section.close {
+	display: none;
 }

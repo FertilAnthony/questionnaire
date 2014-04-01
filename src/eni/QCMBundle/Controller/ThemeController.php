@@ -76,8 +76,7 @@ class ThemeController extends Controller
 	    		$em->persist($theme);
 	    		$em->flush();
 
-	    		// TODO : Rediriger vers la liste des thèmes
-	    		return $this->redirect($this->generateUrl('accueil'));
+	    		return $this->redirect($this->generateUrl('theme_list'));
 	    	}
 	    }
 

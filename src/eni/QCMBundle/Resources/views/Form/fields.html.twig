@@ -19,7 +19,7 @@
         {% set widgetClass = attr.class ~ ' ' ~ widgetClass %}
     {% endif %}
     <div class="{{ class }}">
-        {{ form_label(form, null, {'label_attr': {'class': 'col-sm-3 control-label' } } ) }}
+        {{ form_label(form, null, {'label_attr': {'class': 'col-sm-2' } } ) }}
         <div class="col-sm-9">
             {{ form_widget(form, {'attr': {'class': widgetClass } }) }}
             {% if errors|length > 0 %}

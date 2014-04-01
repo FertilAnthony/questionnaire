@@ -6,8 +6,84 @@ Administration des tests
 
 {% block content %}
 	<h2>Création d'un test</h2> 
-	<form id="createTest" action="{{ path('test_create') }}" method="post" role='form' class='form-horizontal'>
-		{{form_widget(form) }}
-		<input type="submit" class="btn btn-primary" value="Valider">
+	<form id="createTest" action="{{ path('test_create') }}" method="post" role='form' class='form-horizontal' {{ form_enctype(form) }}>
+		{{ form_row(form.nom) }}
+		{{ form_row(form.description) }}
+		{{ form_row(form.duree) }}
+		{{ form_row(form.seuil) }}
+
+		<h3>Sections</h3>
+		{# affiche toutes les sections #}
+		<ul class="list-group sections" data-prototype="{{ form_widget(form.sections.vars.prototype)|e }}">
+			{% for section in form.sections %}
+				<li class="list-group-item">
+					{{ form_row(section.theme) }}
+					{{ form_row(section.nbQuestion) }}
+				</li>
+			{% endfor %}
+		</ul>
+		<input type="submit" class="btn btn-primary createTest" value="Valider">
 	</form>
+
+	<script type="text/javascript">
+
+		function addFormDeleteLink($entityFormLi) {
+	        var $removeButton = $('<button href="#" class="btn btn-danger removeSection"><span class="glyphicon glyphicon-minus"></span>Supprimer Section</button>');
+	        $entityFormLi.append($removeButton);
+
+	        $removeButton.on('click', function(e) {
+	            // empêche le lien de créer un « # » dans l'URL
+	            e.preventDefault();
+	            // supprime l'élément li pour le formulaire de section
+	            $entityFormLi.slideUp("slow", function() {
+	            	$(this).remove();
+	            });
+	        });
+	    }
+
+        function addForm(collectionHolder, $liTemplate) {
+            // Récupère l'élément ayant l'attribut data-prototype
+            var prototype = collectionHolder.attr('data-prototype');
+            // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
+            // la longueur de la collection courante
+            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter une section"
+            var $newFormLi = $($liTemplate).append(newForm);
+
+            collectionHolder.append($newFormLi);
+            $('.section.close').slideDown("slow").removeClass("close");
+            
+            // ajoute un lien de suppression au nouveau formulaire
+            addFormDeleteLink($newFormLi);
+        }
+
+        // Récupère le div qui contient la collection de sections
+        var collectionsHolder = $('ul.sections');
+        // ajoute un lien « Ajouter Section »
+        //collectionHolder.after($addSectionLink);
+        var $liTemplate = '<li class="list-group-item section close"></li>'
+
+        $(function() {
+            // ajoute l'ancre « ajouter un section » et li à la balise ul
+
+            collectionsHolder.each(function(){
+                var collectionHolder = $(this);
+                var $addButtonLink = $('<button href="#" class="addSection btn btn-success"><span class="glyphicon glyphicon-plus"></span>Ajouter Section</button>');
+                collectionHolder.after($addButtonLink);
+
+                // ajoute un lien de suppression à tous les éléments li de
+                // formulaires de section existants
+                collectionHolder.find('li').each(function() {
+                    addFormDeleteLink($(this));
+                });
+
+                $addButtonLink.on('click', function(e) {
+                    // empêche le lien de créer un « # » dans l'URL
+                    e.preventDefault();
+                    // ajoute un nouveau formulaire section (voir le prochain bloc de code)
+                    addForm(collectionHolder, $liTemplate);
+                });
+            });
+		});
+	</script>
 {% endblock %}
