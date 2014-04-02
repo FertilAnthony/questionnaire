@@ -235,5 +235,10 @@ class Test
         }
     }
 
+    function __toString()
+    {
+        return $this->getNom();
+    }
+
 
 }

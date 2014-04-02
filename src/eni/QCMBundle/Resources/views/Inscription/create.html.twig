@@ -1,0 +1,27 @@
+{% extends 'eniQCMBundle::layout.html.twig' %}
+
+{% block title %}
+Administration des inscriptions
+{% endblock %}
+
+{% block js %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('js/lib/bootstrap-datepicker.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+	<h2>Inscriptions à un test</h2> 
+	<form id="createInscription" action="{{ path('inscription_create') }}" method="post" role='form' class='form-horizontal'>
+		{{form_widget(form) }}
+		<input type="submit" class="btn btn-primary" value="Valider">
+	</form>
+
+	<script type="text/javascript">
+	$(function() {
+		console.log($('.datepicker'));
+		$('.datepicker').datepicker({
+			format: 'dd/mm/yyyy'
+		});
+	});
+	</script>
+{% endblock %}

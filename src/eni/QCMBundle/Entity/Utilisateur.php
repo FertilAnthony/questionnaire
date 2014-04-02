@@ -152,4 +152,9 @@ class Utilisateur extends User
     {
         return $this->type;
     }
+
+    function __toString()
+    {
+        return strtoupper($this->getNom()) . ' ' . ucfirst($this->getPrenom());
+    }
 }
