@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use eni\QCMBundle\Form\Type\ProfileType;
 
 class UtilisateurController extends Controller {
 
@@ -43,6 +44,31 @@ class UtilisateurController extends Controller {
 
 		return $this->render('eniQCMBundle:Utilisateur:list.html.twig', array(
 			'listeUtilisateurs' => $listeUtilisateurs
+		));
+	}
+
+	/**
+	* @Route("/profil", name="user_profile", options={"expose"=true})
+	* @Template()
+	*/
+	public function profileAction(Request $request) {
+		
+		$form = $this->createForm(new ProfileType(), $this->utilisateurConnecte);
+    	$form->handleRequest($request);
+
+    	if ($request->getMethod() == "POST") {
+
+	    	if ($form->isValid()) {
+	    		$em = $this->getDoctrine()->getManager();
+	    		$em->persist($this->utilisateurConnecte);
+	    		$em->flush();
+
+	    		return $this->redirect($this->generateUrl('user_list'));
+	    	}
+	    }
+
+		return $this->render('eniQCMBundle:Utilisateur:profile.html.twig', array(
+			'form' => $form->createView()
 		));
 	}
 }

@@ -1,0 +1,13 @@
+{% extends 'eniQCMBundle::layout.html.twig' %}
+
+{% block title %}
+    Profil
+{% endblock %}
+
+{% block content %}
+	<h2>Edition du profile</h2> 
+	<form id="updateProfile" action="{{ path('user_profile') }}" method="post" role='form' class='form-horizontal'>
+		{{form_widget(form) }}
+		<input type="submit" class="btn btn-primary" value="Enregistrer">
+	</form>
+{% endblock %}

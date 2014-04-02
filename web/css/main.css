@@ -90,3 +90,8 @@ th.theme, td.theme, th.promo, td.promo {
 .sections .section.close {
 	display: none;
 }
+
+/* Profile */
+#updateProfile {
+	margin-top: 40px;
+}
