@@ -107,7 +107,7 @@ class Promotion
 
     function __toString()
     {
-        return $this->getLibelle();
+        return $this->getCodePromo();
     }
 
 
