@@ -26,8 +26,7 @@ class QuestionType extends AbstractType {
 	                )
 	            ))
 	            ->add('enonce', 'ckeditor', array(
-	            	'label' => 'Enoncé',
-	            	'required' => true
+	            	'label' => 'Enoncé'
 	            ))
 	            ->add('reponses', 'collection', array(
 	                'required' => true,

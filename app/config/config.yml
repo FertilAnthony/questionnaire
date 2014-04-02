@@ -75,3 +75,29 @@ fos_user:
     db_driver:      orm
     firewall_name:  main
     user_class:     eni\QCMBundle\Entity\Utilisateur
+
+
+# Default configuration for "TrsteelCkeditorBundle"
+trsteel_ckeditor:
+    class:                Trsteel\CkeditorBundle\Form\Type\CkeditorType
+
+    external_plugins:
+        forms:
+            path: js/ckeditor/plugins/forms
+    # The default toolbar displayed on the editor.
+    toolbar:
+
+        # Defaults:
+        - document
+        - clipboard
+        - editing
+        - /
+        - basicstyles
+        - paragraph
+        - links
+        - /
+        - insert
+        - styles
+        - tools
+    toolbar_groups:
+        document: ['Source', 'Code']

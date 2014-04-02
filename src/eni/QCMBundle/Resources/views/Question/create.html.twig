@@ -17,7 +17,7 @@ Administration des question
 			{% for reponse in form.reponses %}
 				<li class="list-group-item">
 					{{ form_row(reponse.libelle) }}
-					{{ form_row(reponse.checkbox) }}
+					{{ form_row(reponse.estBonne) }}
 				</li>
 			{% endfor %}
 		</ul>
@@ -34,7 +34,7 @@ Administration des question
 	        $removeButton.on('click', function(e) {
 	            // empêche le lien de créer un « # » dans l'URL
 	            e.preventDefault();
-	            // supprime l'élément li pour le formulaire de question
+	            // supprime l'élément li pour le formulaire de reponse
 	            $entityFormLi.slideUp("slow", function() {
 	            	$(this).remove();
 	            });
@@ -44,27 +44,28 @@ Administration des question
         function addForm(collectionHolder, $liTemplate) {
             // Récupère l'élément ayant l'attribut data-prototype
             var prototype = collectionHolder.attr('data-prototype');
+            console.log(prototype);
             // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
             // la longueur de la collection courante
             var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
-            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter une question"
+            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter une reponse"
             var $newFormLi = $($liTemplate).append(newForm);
 
             collectionHolder.append($newFormLi);
-            $('.question.close').slideDown("slow").removeClass("close");
+            $('.reponse.close').slideDown("slow").removeClass("close");
             
             // ajoute un lien de suppression au nouveau formulaire
             addFormDeleteLink($newFormLi);
         }
 
         // Récupère le div qui contient la collection de questions
-        var collectionsHolder = $('ul.questions');
+        var collectionsHolder = $('ul.reponses');
         // ajoute un lien « Ajouter Question »
         //collectionHolder.after($addQuestionLink);
-        var $liTemplate = '<li class="list-group-item question close"></li>'
+        var $liTemplate = '<li class="list-group-item reponse close"></li>'
 
         $(function() {
-            // ajoute l'ancre « ajouter un question » et li à la balise ul
+            // ajoute l'ancre « ajouter une reponse » et li à la balise ul
 
             collectionsHolder.each(function(){
                 var collectionHolder = $(this);
@@ -72,7 +73,7 @@ Administration des question
                 collectionHolder.after($addButtonLink);
 
                 // ajoute un lien de suppression à tous les éléments li de
-                // formulaires de question existants
+                // formulaires de reponse existants
                 collectionHolder.find('li').each(function() {
                     addFormDeleteLink($(this));
                 });
@@ -80,7 +81,7 @@ Administration des question
                 $addButtonLink.on('click', function(e) {
                     // empêche le lien de créer un « # » dans l'URL
                     e.preventDefault();
-                    // ajoute un nouveau formulaire question (voir le prochain bloc de code)
+                    // ajoute un nouveau formulaire reponse (voir le prochain bloc de code)
                     addForm(collectionHolder, $liTemplate);
                 });
             });

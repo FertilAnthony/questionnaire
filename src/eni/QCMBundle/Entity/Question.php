@@ -55,8 +55,8 @@ class Question
 
     function __construct()
     {
-        /*$this->themes = new ArrayCollection();
-        $this->reponses = new ArrayCollection();*/
+        $this->themes = new ArrayCollection();
+        $this->reponses = new ArrayCollection();
     }
 
 

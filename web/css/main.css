@@ -75,20 +75,25 @@ th.theme, td.theme, th.promo, td.promo {
 	text-align: center;
 }
 
-/* Test */
+/* Test / Question */
 #createTest, #createQuestion {
 	margin-top: 40px;
 }
-.createTest {
+.createTest, .createQuestion {
 	display: block !important;
 	margin-top: 40px;
 }
-.sections .section {
+.sections .section, .reponses .reponse {
 	margin-top: 15px;
 	list-style-type: none;
 }
-.sections .section.close {
+.sections .section.close, .reponses .reponse.close {
 	display: none;
+}
+
+.reponse [type="checkbox"] {
+	height: 14px;
+	width: auto;
 }
 
 /* Profile */
