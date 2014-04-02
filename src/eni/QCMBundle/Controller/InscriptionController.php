@@ -66,7 +66,7 @@ class InscriptionController extends Controller
     	// Création du formulaire
     	$form = $this->createForm(new InscriptionType(), $inscription);
     	$form->handleRequest($request);
-
+    	//var_dump($form);
     	if ($request->getMethod() == "POST") {
 	    	if ($form->isValid()) {
 	    		$em = $this->getDoctrine()->getManager();

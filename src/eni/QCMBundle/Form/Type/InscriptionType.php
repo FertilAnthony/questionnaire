@@ -30,6 +30,7 @@ class InscriptionType extends AbstractType {
 					'label' => 'Promotions',
 					'class' => 'eniQCMBundle:Promotion',
 					'mapped' => false,
+					'attr' => array('class' => 'promotions', 'size' => 10)
 				))
 				->add('stagiaires', 'entity', array(
 					'label' => 'Stagiaires',
@@ -42,7 +43,14 @@ class InscriptionType extends AbstractType {
             					->orderBy('u.prenom', 'ASC')
             					->setParameter('formateur', 'formateur');
     				},
-    				'multiple' => true
+    				'multiple' => true,
+    				'attr' => array('class' => 'stagiaires', 'size' => 10)
+    			))
+    			->add('utilisateur', 'collection', array(
+    				'type' => 'eniQCMBundle:Utilisateur',
+    				'label' => 'Inscrits',
+    				'data' => null,
+    				'attr' => array('class' => 'inscrits', 'size' => 10)
     			))
 					
 		;

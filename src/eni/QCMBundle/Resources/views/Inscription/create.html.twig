@@ -18,10 +18,30 @@ Administration des inscriptions
 
 	<script type="text/javascript">
 	$(function() {
-		console.log($('.datepicker'));
 		$('.datepicker').datepicker({
-			format: 'dd/mm/yyyy'
+			format: 'dd/mm/yyyy',
+			language: 'fr'
 		});
+console.log($('#createInscription .promotions'));
+		// Surcharge css formulaire
+		$('#createInscription .promotions').parent().css({
+			"width": "40%",
+			"float": "none",
+			"margin-top": "35px"
+		});
+		$('#createInscription .stagiaires').parent().css({
+			"width": "40%",
+			"float": "none",
+			"margin-top": "35px"
+		});
+		$('#createInscription .inscrits').parent().css({
+			"width": "40%",
+			"float": "right",
+			"min-heigth": "430px",
+			'margin-top': '-438px'
+		});
+
+		
 	});
 	</script>
 {% endblock %}
