@@ -33,13 +33,6 @@ class Question
     /**
      * @var string
      *
-     * @ORM\Column(name="media", type="string", length=4096, nullable=true)
-     */
-    private $media;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="type", type="string", length=15)
      */
     private $type;
@@ -62,8 +55,8 @@ class Question
 
     function __construct()
     {
-        $this->themes = new ArrayCollection();
-        $this->reponses = new ArrayCollection();
+        /*$this->themes = new ArrayCollection();
+        $this->reponses = new ArrayCollection();*/
     }
 
 
@@ -98,29 +91,6 @@ class Question
     public function getEnonce()
     {
         return $this->enonce;
-    }
-
-    /**
-     * Set media
-     *
-     * @param string $media
-     * @return Question
-     */
-    public function setMedia($media)
-    {
-        $this->media = $media;
-
-        return $this;
-    }
-
-    /**
-     * Get media
-     *
-     * @return string 
-     */
-    public function getMedia()
-    {
-        return $this->media;
     }
 
     /**

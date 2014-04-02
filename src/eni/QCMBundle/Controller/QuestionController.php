@@ -72,7 +72,7 @@ class QuestionController extends Controller
     	if ($request->getMethod() == "POST") {
 	    	if ($form->isValid()) {
 	    		$em = $this->getDoctrine()->getManager();
-	    		$em->persist($promo);
+	    		$em->persist($question);
 	    		$em->flush();
 
 	    		return $this->redirect($this->generateUrl('question_list'));

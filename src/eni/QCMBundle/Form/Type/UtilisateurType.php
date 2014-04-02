@@ -41,6 +41,9 @@ class UtilisateurType extends AbstractType {
 				->add('promotion', 'entity', array(
 					'label' => 'Promotion',
 					'class' => 'eniQCMBundle:Promotion',
+					'required' => false,
+					'empty_value' => 'Liste des promotions',
+					'empty_data' => null,
 					'query_builder' => function(EntityRepository $er) {
         				return $er->createQueryBuilder('p')
             					->orderBy('p.codePromo', 'ASC');

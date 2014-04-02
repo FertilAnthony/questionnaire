@@ -1,0 +1,89 @@
+{% extends 'eniQCMBundle::layout.html.twig' %}
+
+{% block title %}
+Administration des question
+{% endblock %}
+
+{% block content %}
+	<h2>Création d'une question</h2> 
+	<form id="createQuestion" action="{{ path('question_create') }}" method="post" role='form' class='form-horizontal' {{ form_enctype(form) }}>
+		{{ form_row(form.themes) }}
+		{{ form_row(form.type) }}
+		{{ form_row(form.enonce) }}
+
+		<h3>Réponses</h3>
+		{# affiche toutes les réponses #}
+		<ul class="list-group reponses" data-prototype="{{ form_widget(form.reponses.vars.prototype)|e }}">
+			{% for reponse in form.reponses %}
+				<li class="list-group-item">
+					{{ form_row(reponse.libelle) }}
+					{{ form_row(reponse.checkbox) }}
+				</li>
+			{% endfor %}
+		</ul>
+		{{ form_row(form._token) }}
+		<input type="submit" class="btn btn-primary createQuestion" value="Valider">
+	</form>
+
+	<script type="text/javascript">
+
+		function addFormDeleteLink($entityFormLi) {
+	        var $removeButton = $('<button href="#" class="btn btn-danger removeQuestion"><span class="glyphicon glyphicon-minus"></span>Supprimer Question</button>');
+	        $entityFormLi.append($removeButton);
+
+	        $removeButton.on('click', function(e) {
+	            // empêche le lien de créer un « # » dans l'URL
+	            e.preventDefault();
+	            // supprime l'élément li pour le formulaire de question
+	            $entityFormLi.slideUp("slow", function() {
+	            	$(this).remove();
+	            });
+	        });
+	    }
+
+        function addForm(collectionHolder, $liTemplate) {
+            // Récupère l'élément ayant l'attribut data-prototype
+            var prototype = collectionHolder.attr('data-prototype');
+            // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
+            // la longueur de la collection courante
+            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter une question"
+            var $newFormLi = $($liTemplate).append(newForm);
+
+            collectionHolder.append($newFormLi);
+            $('.question.close').slideDown("slow").removeClass("close");
+            
+            // ajoute un lien de suppression au nouveau formulaire
+            addFormDeleteLink($newFormLi);
+        }
+
+        // Récupère le div qui contient la collection de questions
+        var collectionsHolder = $('ul.questions');
+        // ajoute un lien « Ajouter Question »
+        //collectionHolder.after($addQuestionLink);
+        var $liTemplate = '<li class="list-group-item question close"></li>'
+
+        $(function() {
+            // ajoute l'ancre « ajouter un question » et li à la balise ul
+
+            collectionsHolder.each(function(){
+                var collectionHolder = $(this);
+                var $addButtonLink = $('<button href="#" class="addQuestion btn btn-success"><span class="glyphicon glyphicon-plus"></span>Ajouter Question</button>');
+                collectionHolder.after($addButtonLink);
+
+                // ajoute un lien de suppression à tous les éléments li de
+                // formulaires de question existants
+                collectionHolder.find('li').each(function() {
+                    addFormDeleteLink($(this));
+                });
+
+                $addButtonLink.on('click', function(e) {
+                    // empêche le lien de créer un « # » dans l'URL
+                    e.preventDefault();
+                    // ajoute un nouveau formulaire question (voir le prochain bloc de code)
+                    addForm(collectionHolder, $liTemplate);
+                });
+            });
+		});
+	</script>
+{% endblock %}
