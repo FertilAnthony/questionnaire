@@ -1,0 +1,17 @@
+.center {
+	text-align: center;
+	margin: auto;
+}
+
+/*Ajout effet hover sur bouton*/
+.btn, .update-theme, .update-promo {
+	-webkit-transition-property:background color;
+	-webkit-transition-duration:0.25s;
+	-webkit-transition-timing-function:linear;
+	-o-transition-property:background color;
+	-o-transition-duration:0.25s;
+	-o-transition-timing-function:linear;
+	transition-property:background color;
+	transition-duration:0.25s;
+	transition-timing-function:linear;
+}

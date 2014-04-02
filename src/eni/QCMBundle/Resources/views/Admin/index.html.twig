@@ -6,7 +6,7 @@
 
 {% block content %}
 	<div class="jumbotron">
-       	<h1>Bonjour {{ app.user.getPrenom() }}</h1>
+       	<h1>Bonjour {{ app.user.getPrenom()|capitalize }}</h1>
         <p class="lead">Bienvenue dans le menu de gestion des questionnaires.</p>
     </div>
 	<h2>Administration</h2>
