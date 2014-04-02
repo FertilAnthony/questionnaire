@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new eni\QCMBundle\eniQCMBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Trsteel\CkeditorBundle\TrsteelCkeditorBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
