@@ -37,7 +37,6 @@ class UtilisateurType extends AbstractType {
 					'choices' => array('formateur' => 'Formateur', 'stagiaire' => 'Stagiaire'),
 					'preferred_choices' => array('stagiaire')
 				))
-				// TODO -> Penser à récupérer le codePromo
 				->add('promotion', 'entity', array(
 					'label' => 'Promotion',
 					'class' => 'eniQCMBundle:Promotion',

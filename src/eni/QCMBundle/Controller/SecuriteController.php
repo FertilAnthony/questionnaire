@@ -48,6 +48,7 @@ class SecuriteController extends Controller {
 		$oSession->getFlashBag()->add('notice', $error);
 
 		// on redirige vers la page d'origine(ici la page d'accueil) après la connexion
+		$referer = $this->generateUrl('accueil');
 		$referer = $oRequest->server->get('HTTP_REFERER');
 		$tRetour = array('lastUsername' => $lastUsername, 'csrf_token' => $csrfToken, 'referer' => $referer);
 

@@ -49,8 +49,8 @@ class Utilisateur extends User
    /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Promotion", inversedBy="stagiaires")
-     * @ORM\JoinColumn(name="code_promo", referencedColumnName="code_promo", unique=true)
+     * @ORM\ManyToOne(targetEntity="Promotion", inversedBy="stagiaires",cascade={"all"})
+     * @ORM\JoinColumn(name="code_promo", referencedColumnName="code_promo", nullable=true)
      */
     private $promotion;
 
