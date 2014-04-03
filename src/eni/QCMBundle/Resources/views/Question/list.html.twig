@@ -5,4 +5,34 @@
 {% endblock %}
 
 {% block content %}
+
+	<h2>Liste des Questions</h2>
+
+	<a class="btn btn-success" href="{{ path('question_create') }}">Ajouter Question</a>
+
+	<div class="table-responsive">
+	    <table class="question table table-hover table-striped">
+	        <thead>
+	            <tr>
+	                <th class="question" data-attribute="id"> Id </th>
+	                <th class="question" data-attribute="enonce"> Enoncé </th>
+	                <th class="question" data-attribute="type"> Type </th>
+	                <th class="question" data-attribute="update"> Modifier/Supprimer </th>
+	            </tr>
+	        </thead>
+	        <tbody id="question-list">
+	        	{% for question in listeQuestions %}
+	        		<tr>
+			        	<td class="id question">{{ question.getId() }}</td>
+			        	<td class="enonce question">{{ question.getEnonce()|striptags }}</td>
+			        	<td class="type question">{{ question.getType() }}</td>
+			        	<td class="update question_create">
+			        		<span class="update-theme glyphicon glyphicon-refresh"></span>
+			        		<span class="update-theme glyphicon glyphicon-trash"></span>
+			    	</tr>
+			    {% endfor %}
+	        </tbody>
+	    </table>
+	</div>
+
 {% endblock %}

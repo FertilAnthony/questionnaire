@@ -76,7 +76,7 @@ th.theme, td.theme, th.promo, td.promo {
 }
 
 /* Test / Question */
-#createTest, #createQuestion, .test {
+#createTest, #createQuestion, .test, .question {
 	margin-top: 40px;
 }
 .createTest, .createQuestion {

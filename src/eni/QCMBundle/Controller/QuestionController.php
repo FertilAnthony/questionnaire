@@ -52,7 +52,7 @@ class QuestionController extends Controller
 		}
 
 		return $this->render('eniQCMBundle:Question:list.html.twig', array(
-			'listeQuestions' => $listeQuestions
+			'listeQuestions' => $allQuestions
 		));
 	}
 
