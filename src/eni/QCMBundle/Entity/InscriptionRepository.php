@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class InscriptionRepository extends EntityRepository
 {
+
+	public function getInscriptionsEnCoursUtilisateur($utilisateur) {
+
+		$today = new \Datetime('NOW');
+		// Définit l'heure du jour à minuit pour pouvoir passer un test le jour de la fin de sa durée de validité
+		$today->setTime(0, 0, 0);
+
+		$qb = $this->createQueryBuilder('i');
+
+		$qb->where('i.utilisateur = :utilisateur')
+			->setParameter('utilisateur', $utilisateur)
+			->andWhere('i.dureeValidite >= :today')
+			->setParameter('today', $today)
+			->andWhere('i.etat != TRUE')
+			->orderBy('i.tempsEcoule', 'desc')
+			->orderBy('i.dureeValidite', 'desc');
+
+		return $qb->getQuery()
+				  ->getResult();
+	}
 }

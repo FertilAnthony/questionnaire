@@ -39,7 +39,6 @@ class DefaultController extends Controller
 
     	
     	if (isset($this->roles) && in_array('ROLE_ADMIN', $this->roles)) {
-    		var_dump($this->roles);
     		return $this->redirect($this->generateUrl('admin_menu'));
     	} else {
     		return $this->render('eniQCMBundle:Default:index.html.twig');

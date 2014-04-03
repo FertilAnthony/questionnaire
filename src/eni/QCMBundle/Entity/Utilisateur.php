@@ -159,7 +159,7 @@ class Utilisateur extends User
 
     // Vérifie si l'utilisateur est formateur
     public function estFormateur() {
-        return in_array('formateur', $this->getType());
+        return ($this->getType() == 'formateur') ? TRUE : FALSE; 
     }
 
     public function addInscription(Inscription $inscription) {

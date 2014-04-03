@@ -1,0 +1,20 @@
+{% extends 'eniQCMBundle::layout.html.twig' %}
+
+{% block title %}
+Liste des tests en cours
+{% endblock %}
+
+{% block content %}
+	
+	<h2> Liste des tests disponible<br/> Selectionnez celui que vous souhaitez passer:</h2>
+
+	<div class="list-group testsStagiaire">
+		{% for inscription in inscriptionsUtilisateur %}
+			{% if inscription.tempsEcoule != 0 %}
+				<a href="#" class="list-group-item">{{ inscription.test.getNom() }}: {{ inscription.test.getDescription() }} (en cours)</a>
+			{% else %}
+				<a href="#" class="list-group-item">{{ inscription.test.getNom() }}: {{ inscription.test.getDescription() }}</a>
+			{% endif %}
+		{% endfor %}
+    </div>
+{% endblock %}
