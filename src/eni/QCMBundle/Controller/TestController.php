@@ -68,7 +68,7 @@ class TestController extends Controller
 	    		$em->flush();
 
 	    		// TODO : Rediriger vers la liste des tests
-	    		return $this->redirect($this->generateUrl('accueil'));
+	    		return $this->redirect($this->generateUrl('test_list'));
 	    	}
 	    }
 
