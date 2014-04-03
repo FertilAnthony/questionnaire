@@ -41,10 +41,30 @@ Liste des tests en cours
     			var nomTest = $(this).data('test'),
     				id = $(this).data('id');
     				console.log($(this));
-    			$('#confirmationTestPassage .confirmButton').attr('href', "{{ path('passage-test') }}/" + id);
+
+                // Génération de la modal et son contenu
+                $('#confirmationTestPassage .modal-body').html('<p>Vous êtes sur le point de commencer le test "' + nomTest + '". Êtes-vous sûr de vouloir continuer ?</p>');
+                $('#confirmationTestPassage').modal();
+
+                // Sélection aléatoire des question
+                $('#confirm-participation').click(function() {
+                    console.log('click');
+                    $.ajax({
+                        url: "{{ path('passage-test') }}/" + id,
+                        method: "POST"
+                    }).done(function(msg) {
+                        console.log(msg);
+                        if (msg == 'ok') {
+
+                        }
+                    }).fail(function(msg) {
+                        console.log(msg);
+                    });
+                });
+
+    			//$('#confirmationTestPassage .confirmButton').attr('href', "{{ path('passage-test') }}/" + id);
     			console.log($(this).attr('href'));
-    			$('#confirmationTestPassage .modal-body').html('<p>Vous êtes sur le point de commencer le test "' + nomTest + '". Êtes-vous sûr de vouloir continuer ?</p>');
-    			$('#confirmationTestPassage').modal();
+    			
     		});
     	});
     </script>

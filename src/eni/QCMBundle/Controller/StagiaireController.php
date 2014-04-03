@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use eni\QCMBundle\Entity\Inscription;
+use eni\QCMBundle\Entity\QuestionTirage;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -56,11 +57,8 @@ class StagiaireController extends Controller
         	'inscriptionsUtilisateur' => $tests));
     }
 
-    /**
-     * @Route("/passage_test/{id}", name="passage-test", options={"expose"=true}, defaults={"id"=0})
-     * @Template
-     */
-    public function makeTestAction(Inscription $inscription) {
+    
+    public function saveQuestionTestAction(Request $request, Inscription $inscription) {
 
     	// Il faut récupérer aléatoirement : X questions par thème définis dans les sections d'un test
     	$randomQuestions = new ArrayCollection();
@@ -79,8 +77,31 @@ class StagiaireController extends Controller
     		$randomIdQuestions = $themeRepository->getRandomQuestionIdsByTheme($nbQuestions, $theme);
     		$randomQuestions = $questionRepository->getRandomQuestionsByTheme($randomIdQuestions);
     		// On sauvegarde les questions sélectionnées dans la table questions_tirage
+            foreach ($randomQuestions as $question) {
+                var_dump($question[0]);
+                $questionTirage = new QuestionTirage();
+                $questionTirage->setQuestion($question[0]);
+                $questionTirage->setInscription($inscription);
+                $questionTirage->setEstMarquee(false);
+
+                // On persite et on sauvegarde
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($questionTirage);
+                $em->flush();
+            }
     	}
 
-    	return $this->render('eniQCMBundle:Stagiaire:passage_test.html.twig');
+        return $request;
+
+    }
+
+    /**
+     * @Route("/passage_test/{id}", name="passage-test", options={"expose"=true}, defaults={"id"=0})
+     * @Template
+     */
+    public function makeTestAction(Inscription $inscription) {
+
+
+        return $this->render('eniQCMBundle:Stagiaire:passage_test.html.twig');
     }
 }
