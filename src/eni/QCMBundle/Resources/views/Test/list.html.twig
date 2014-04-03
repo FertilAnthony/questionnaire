@@ -1,4 +1,44 @@
 {% extends 'eniQCMBundle::layout.html.twig' %}
 
+{% block title %}
+	Liste des tests
+{% endblock %}
+
 {% block content %}
+
+	<h2>Liste des tests</h2>
+
+	<a class="btn btn-success" href="{{ path('test_create') }}">Ajouter Test</a>
+
+	<div class="table-responsive">
+	    <table class="test table table-hover table-striped">
+	        <thead>
+	            <tr>
+	                <th class="test" data-attribute="id"> Id </th>
+	                <th class="test" data-attribute="libelle"> Nom </th>
+	                <th class="test" data-attribute="description"> Description </th>
+	                <th class="test" data-attribute="duree"> Durée </th>
+	                <th class="test" data-attribute="seuil"> Seuil </th>
+	                <th class="test" data-attribute="formateur"> Formateur </th>
+	                <th class="test" data-attribute="update"> Modifier/Supprimer </th>
+	            </tr>
+	        </thead>
+	        <tbody id="test-list">
+	        	{% for test in listeTests %}
+	        		<tr>
+			        	<td class="id test">{{ test.getId() }}</td>
+			        	<td class="nom test">{{ test.getNom() }}</td>
+			        	<td class="description test">{{ test.getDescription() }}</td>
+			        	<td class="duree test">{{ test.getDuree()|date('H:i') }}</td>
+			        	<td class="seuil test">{{ test.getSeuil() }}%</td>
+			        	<td class="formateur test">{{ test.getFormateur() }}</td>
+			        	<td class="update test">
+			        		<span class="update-theme glyphicon glyphicon-refresh"></span>
+			        		<span class="update-theme glyphicon glyphicon-trash"></span>
+			    	</tr>
+			    {% endfor %}
+	        </tbody>
+	    </table>
+	</div>
+
 {% endblock %}

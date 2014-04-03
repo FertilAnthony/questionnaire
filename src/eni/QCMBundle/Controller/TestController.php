@@ -34,6 +34,19 @@ class TestController extends Controller
 		}
 	}
 
+	/**
+	* @Route("/liste_test", name="test_list", options={"expose"=true})
+	* @Template()
+	*/
+	public function listAction() {
+		$testRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:Test');
+		$allTests = $testRepository->findAll();
+
+		return $this->render('eniQCMBundle:Test:list.html.twig', array(
+			'listeTests' => $allTests
+		));
+	}
+
     /**
      * @Route("/creer_test", name="test_create", options={"expose"=true})
      * @Template()

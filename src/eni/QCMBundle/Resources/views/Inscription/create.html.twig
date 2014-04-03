@@ -13,6 +13,10 @@ Administration des inscriptions
 	<h2>Inscriptions à un test</h2> 
 	<form id="createInscription" action="{{ path('inscription_create') }}" method="post" role='form' class='form-horizontal'>
 		{{form_widget(form) }}
+		<button type="button" class="btn btn-success addPromo" title="Ajouter une promotion"><span class="glyphicon glyphicon-forward"></span></button>
+		<button type="button" class="btn btn-danger removePromo" title="Retirer une promotion"><span class="glyphicon glyphicon-backward"></span></button>
+		<button type="button" class="btn btn-success addUser" title="Ajouter un stagiaire"><span class="glyphicon glyphicon-forward"></span></button>
+		<button type="button" class="btn btn-danger removeUser" title="Retirer un stagiaire"><span class="glyphicon glyphicon-backward"></span></button>
 		<input type="submit" class="btn btn-primary" value="Valider">
 	</form>
 
@@ -37,11 +41,8 @@ console.log($('#createInscription .promotions'));
 		$('#createInscription .inscrits').parent().css({
 			"width": "40%",
 			"float": "right",
-			"min-heigth": "430px",
-			'margin-top': '-438px'
+			'margin-top': '-460px'
 		});
-
-		
 	});
 	</script>
 {% endblock %}

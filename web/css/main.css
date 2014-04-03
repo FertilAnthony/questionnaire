@@ -76,7 +76,7 @@ th.theme, td.theme, th.promo, td.promo {
 }
 
 /* Test / Question */
-#createTest, #createQuestion {
+#createTest, #createQuestion, .test {
 	margin-top: 40px;
 }
 .createTest, .createQuestion {
@@ -102,3 +102,38 @@ th.theme, td.theme, th.promo, td.promo {
 }
 
 /* Inscription */
+#createInscription {
+	margin-top: 40px;
+}
+#inscription_utilisateur {
+	height: 425px;
+}
+#createInscription .addPromo {
+	position: absolute;
+	top: 330px;
+	left: 525px;
+	padding-left: 15px;
+}
+#createInscription .removePromo {
+	position: absolute;
+	top: 420px;
+	left: 525px;
+	padding-right: 15px;
+}
+#createInscription .addUser {
+	position: absolute;
+	top: 565px;
+	left: 525px;
+	padding-left: 15px;
+}
+#createInscription .removeUser {
+	position: absolute;
+	top: 655px;
+	left: 525px;
+	padding-right: 15px;
+}
+#createInscription .label_inscrits {
+	float: none;
+	top: -470px;
+	left: 580px;
+}
