@@ -32,21 +32,21 @@ class Inscription
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="tempsEcoule", type="datetime")
+     * @ORM\Column(name="tempsEcoule", type="datetime", nullable=true)
      */
     private $tempsEcoule;
 
     /**
-     * @var string
+     * @var boolean
      *
-     * @ORM\Column(name="etat", type="string", length=20)
+     * @ORM\Column(name="etat", type="boolean")
      */
     private $etat;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="resultat", type="integer")
+     * @ORM\Column(name="resultat", type="integer", nullable=true)
      */
     private $resultat;
 

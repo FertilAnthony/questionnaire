@@ -108,6 +108,9 @@ th.theme, td.theme, th.promo, td.promo {
 #inscription_utilisateur {
 	height: 425px;
 }
+#createInscription .promotions, #createInscription .stagiaires {
+	height: 185px;
+}
 #createInscription .addPromo {
 	position: absolute;
 	top: 330px;

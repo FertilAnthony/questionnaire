@@ -26,7 +26,7 @@ Administration des inscriptions
 			format: 'dd/mm/yyyy',
 			language: 'fr'
 		});
-console.log($('#createInscription .promotions'));
+
 		// Surcharge css formulaire
 		$('#createInscription .promotions').parent().css({
 			"width": "40%",
@@ -42,6 +42,11 @@ console.log($('#createInscription .promotions'));
 			"width": "40%",
 			"float": "right",
 			'margin-top': '-460px'
+		});
+		$("label[for='.inscrits']").css({
+			"float": "none",
+			"top": "-470px",
+			"left": "580px"
 		});
 	});
 	</script>

@@ -62,6 +62,10 @@ class Utilisateur extends User
      */
     private $type;
 
+    /**
+    * @ORM\OneToMany(targetEntity="Inscription", mappedBy="utilisateur", cascade={"persist"})
+    */
+    private $inscriptions;
 
     /**
      * Get id
@@ -152,6 +156,25 @@ class Utilisateur extends User
     {
         return $this->type;
     }
+
+    // Vérifie si l'utilisateur est formateur
+    public function estFormateur() {
+        return in_array('formateur', $this->getType());
+    }
+
+    public function addInscription(Inscription $inscription) {
+        $this->inscription[] = $inscription;
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription) {
+        $this->inscriptions->removeElement($inscription);
+    }
+
+    public function getInscription() {
+        return $this->inscriptions;
+    }
+
 
     function __toString()
     {
