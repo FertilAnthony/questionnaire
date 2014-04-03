@@ -14,6 +14,23 @@ class QuestionRepository extends EntityRepository
 {
     protected $validator;
 
+    
+    public function getRandomQuestionsByTheme($nbQuestionIds) {
+
+        $qb = $this->createQueryBuilder('q');
+
+        $questions = [];
+        foreach ($nbQuestionIds as $id) {
+            $qb->where('q.id = :id')
+                ->setParameter('id', $id);
+            $questions[] = $qb->getQuery()
+                ->getResult();
+        }
+
+        return $questions;
+    }
+
+
     /**
      * @param mixed $validator
      */

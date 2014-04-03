@@ -14,6 +14,23 @@ class ThemeRepository extends EntityRepository
 {
     protected $validator;
 
+    
+    public function getRandomQuestionIdsByTheme($nbQuestions, $theme) {
+        
+        $nbQuestionsByTheme = $theme->getQuestions()->count();
+
+        $idUsed = [];
+        for ($i = 0; $i < $nbQuestions; $i++) {
+            $randomId = rand(1, intval($nbQuestionsByTheme));
+            while (in_array($randomId, $idUsed)) {
+                $randomId = rand(1, intval($nbQuestionsByTheme));
+            }
+            $idUsed[] = $randomId;
+        }
+
+        return $idUsed;
+    }
+
     /**
      * @param mixed $validator
      */
