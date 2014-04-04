@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use eni\QCMBundle\Entity\Inscription;
 use eni\QCMBundle\Entity\QuestionTirage;
+use eni\QCMBundle\Entity\Question;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,9 +107,16 @@ class StagiaireController extends Controller
      * @Route("/passage_test/{id}", name="passage-test", options={"expose"=true}, defaults={"id"=0})
      * @Template()
      */
-    public function makeTestAction(Inscription $inscription) {
+    public function makeTestAction(Inscription $inscription, Question $question) {
 
+        // Récupération de la première question ainsi que du temps pour le passage du test
+        $questionTirage = new QuestionTirage();
+        $questionTirageRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:QuestionTirage');
+        $questionTirage = $questionTirageRepository->getIdQuestionTirage();
 
-        return $this->render('eniQCMBundle:Stagiaire:passage_test.html.twig');
+        var_dump($questionTirage);
+
+        return $this->render('eniQCMBundle:Stagiaire:passage_test.html.twig',array(
+            'first_question' => $questionTirage));
     }
 }

@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class QuestionTirageRepository extends EntityRepository
 {
+
+	public function getIdQuestionTirage($offset = 0) {
+
+		$qb = $this->createQueryBuilder('qt');
+
+		$qb->setFirstResult($offset)
+			->setMaxResults(1);
+
+		return $qb->getQuery()
+				  ->getSingleResult();
+	}
 }
