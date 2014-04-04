@@ -14,15 +14,22 @@
 {% endblock %}
 
 {% block content %}
+	
+	<div id="question-list"></div>
+	<div class="question"></div>
+	<div id="question-pagination"></div>
 
 
 <script type="text/javascript">
 
 	$(function() {
-		/*var collectionQuestion = new QuestionPaginatedCollection(, {
+		var collectionQuestions = new QuestionPaginatedCollection({{ questions|json_encode|raw }}, {
 			displayPerPage: 1
 		});
-		console.log(collectionQuestion);*/
+		
+		var questionsView = new QuestionAppView({collection: collectionQuestions, dureeTest: "{{ dureeTest|date('i:s') }}"});
+		var paginationView = new QuestionPaginationView({collection: collectionQuestions});
+		collectionQuestions.pager();
 	});
 </script>
 {% endblock %}

@@ -6,10 +6,6 @@ var QuestionPaginatedCollection = Backbone.Paginator.clientPager.extend({
     page: 1,
     // how many results to display per 'client page'
     displayPerPage: 1,
-    // what field should the results be sorted on?
-    sortField: undefined,
-    // what direction should the results be sorted in?
-    sortDirection: 'asc',
 
     initialize: function(models, options) {
         options = _.defaults(options || {}, {
@@ -27,32 +23,9 @@ var QuestionPaginatedCollection = Backbone.Paginator.clientPager.extend({
         self.page = --self.page || 1;
         self.pager();
     },
-    goTo: function(page) {
-        var self = this;
-        self.page = parseInt(page, 10);
-        self.pager();
-    },
-    howManyPer: function(displayPerPage) {
-        var self = this;
-        self.page = 1;
-        self.displayPerPage = displayPerPage;
-        self.pager();
-    },
-    setSort: function(column, direction) {
-        var self = this;
-        self.pager(column, direction);
-    },
     pager: function(sort, direction) {
         if (!_.isNumber(this.page)) {
             this.page = 1;
-        }
-
-        if (sort) {
-            this.sortField = sort;
-        }
-
-        if (direction) {
-            this.sortDirection = direction;
         }
 
         if (this.origModels === undefined) {
@@ -63,28 +36,15 @@ var QuestionPaginatedCollection = Backbone.Paginator.clientPager.extend({
             stop,
             models = _.clone(this.origModels);
 
-        if (typeof this.sortField != "undefined" && 'default' != this.sortField) {
-            models = this._sort(models, this.sortField, this.sortDirection);
-        }
-
         this.totalRecords = models.length;
         this.totalPages = Math.ceil(this.totalRecords / this.displayPerPage);
 
-        if (this.page > 1) {
-            this.reset();
-            start = (this.page - 1) * this.displayPerPage;
-            stop = start + this.displayPerPage;
-            for (var i = start; i <= stop; i++) {
-                if (!this.models[i] && models[i]) {
-                    this.add(models[i].clone());
-                }
-            }
-        } else {
-            start = 0;
-            stop = start + this.page * this.displayPerPage;
-            this.models = models.slice(start, stop);
-            this.reset(this.models);
-        }
+        start = 0;
+        stop = start + this.page * this.displayPerPage;
+        console.log(stop);
+        this.models = models.slice(start, stop);
+        this.reset(this.models);
+
     },
     info: function() {
         var self = this,
@@ -120,9 +80,6 @@ var QuestionPaginatedCollection = Backbone.Paginator.clientPager.extend({
     more: function() {
         // console.log('more');
         this.pager(this.page + 1);
-    },
-    getSortField: function() {
-        return this.sortField;
     }
 
 });

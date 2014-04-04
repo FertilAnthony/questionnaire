@@ -119,7 +119,10 @@ class StagiaireController extends Controller
             $reponses = $question->getReponses();
             $libelleReponses = [];
             foreach($reponses as $reponse) {
-                $libelleReponses[] = $reponse->getLibelle();
+                $libelleReponses[] = [
+                    'id' => $reponse->getId(),
+                    'libelle' => $reponse->getLibelle()
+                ];
             }
             $questions[] =  [
                 'id' => $question->getId(),
@@ -128,15 +131,13 @@ class StagiaireController extends Controller
                 'reponses' => $libelleReponses
             ];
         }
-        //var_dump($questions);
-        /*$question = $questionTirage->getQuestion();
-        var_dump($question->getReponses());*/
 
         // On récupère le test lié a l'inscription
         $test = $inscription->getTest();
         $dureeTest = $test->getDuree();
 
         return $this->render('eniQCMBundle:Stagiaire:passage_test.html.twig',array(
+            'questions' => $questions,
             'dureeTest' => $dureeTest));
     }
 }
