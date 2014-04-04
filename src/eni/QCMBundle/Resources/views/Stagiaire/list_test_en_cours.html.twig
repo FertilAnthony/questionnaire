@@ -28,7 +28,7 @@ Liste des tests en cours
                 <div class="modal-body"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                    <a href="#" class="btn btn-success confirmButton" id="confirm-participation">Confirmer</a>
+                    <a href="#" class="btn btn-success confirmButton" id="confirm-participation" data-loading-text="Génération aléatoire des questions..." data-error-text="Une erreur est survenue" data-done-text="Génération réussie">Confirmer</a>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@ Liste des tests en cours
     			e.stopImmediatePropagation();
     			var nomTest = $(this).data('test'),
     				id = $(this).data('id');
-    				console.log($(this));
+    				console.log(id);
 
                 // Génération de la modal et son contenu
                 $('#confirmationTestPassage .modal-body').html('<p>Vous êtes sur le point de commencer le test "' + nomTest + '". Êtes-vous sûr de vouloir continuer ?</p>');
@@ -48,17 +48,23 @@ Liste des tests en cours
 
                 // Sélection aléatoire des question
                 $('#confirm-participation').click(function() {
-                    console.log('click');
+                    var btn = $(this);
+                    btn.button('loading');
                     $.ajax({
-                        url: "{{ path('passage-test') }}/" + id,
+                        url: "{{ path('generate-question') }}/" + id,
                         method: "POST"
                     }).done(function(msg) {
-                        console.log(msg);
-                        if (msg == 'ok') {
-
-                        }
+                        btn.attr('disabled', true);
+                        btn.button('done');
+                        $('#confirmationTestPassage .modal-body').html('<p>Génération aléatoire des questions réalisée avec succès, le questionnaire va bientôt débuter.</p>');
+                        setTimeout(function() {
+                            window.location = "{{ path('passage-test') }}/" + id;
+                        }, 5000);
                     }).fail(function(msg) {
-                        console.log(msg);
+                        btn.attr('disabled', 'disabled');
+                        btn.button('error');
+                        $('#confirmationTestPassage .modal-title').html('ERREUR');
+                        $('#confirmationTestPassage .modal-body').html('<p>Une erreur est survenue lors de la génération des questions, veuillez réessayer plus tard.</p>');
                     });
                 });
 

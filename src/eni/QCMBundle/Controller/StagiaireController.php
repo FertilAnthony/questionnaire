@@ -11,6 +11,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use eni\QCMBundle\Entity\Inscription;
 use eni\QCMBundle\Entity\QuestionTirage;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * @Route("/stagiaire")
@@ -57,7 +60,10 @@ class StagiaireController extends Controller
         	'inscriptionsUtilisateur' => $tests));
     }
 
-    
+    /**
+     * @Route("/generate_question/{id}", name="generate-question", options={"expose"=true}, defaults={"id"=0})
+     * @Method({"POST"})
+     */
     public function saveQuestionTestAction(Request $request, Inscription $inscription) {
 
     	// Il faut récupérer aléatoirement : X questions par thème définis dans les sections d'un test
@@ -91,13 +97,13 @@ class StagiaireController extends Controller
             }
     	}
 
-        return $request;
+        return new Response('ok');
 
     }
 
     /**
      * @Route("/passage_test/{id}", name="passage-test", options={"expose"=true}, defaults={"id"=0})
-     * @Template
+     * @Template()
      */
     public function makeTestAction(Inscription $inscription) {
 
