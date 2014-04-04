@@ -41,7 +41,6 @@ var QuestionPaginatedCollection = Backbone.Paginator.clientPager.extend({
 
         start = 0;
         stop = start + this.page * this.displayPerPage;
-        console.log(stop);
         this.models = models.slice(start, stop);
         this.reset(this.models);
 

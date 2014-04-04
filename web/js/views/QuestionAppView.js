@@ -9,7 +9,6 @@ var QuestionAppView = Backbone.View.extend({
     },
     addAll: function() {
         this.$el.empty();
-        console.log(this.collection);
         this.collection.each(this.addOne, this);
     },
     addOne: function(item) {

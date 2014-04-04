@@ -147,3 +147,13 @@ th.theme, td.theme, th.promo, td.promo {
 .testsStagiaire {
 	margin-top: 40px;
 }
+
+/* questionnaire stagiaire */
+#question-pagination .nbQuestion {
+	position: absolute;
+	top: 70px;
+	left: 15px;
+	font-size: 1.3em;
+	font-weight: bold;
+	font-family: cursive;
+}

@@ -1,35 +1,72 @@
-{% extends 'eniQCMBundle:Stagiaire:layoutTest.html.twig' %}
+{% spaceless %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Passage d'un test{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block js %}
+            <script type="text/javascript" src="{{ asset('js/lib/jquery-2.1.0.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/lib/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/lib/underscore-min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/lib/backbone-min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/lib/backbone.paginator.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/models/Model.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('js/collections/QuestionPaginatedCollection.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('js/views/QuestionAppView.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('js/views/stagiaires/QuestionView.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('js/views/stagiaires/QuestionPaginationView.js') }}"></script>
+        {% endblock %}
 
-{% block title %}
-	Passage d'un test
-{% endblock %}
+        {% block css %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap/bootstrap-theme.min.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap/bootstrap.min.css') }}"/>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    {% block body %}
+        <body>
+            <div class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand" href="#">{{ app.user }} - {{ app.user.promotion }}</span>
+                    <span class="nomTest"></span>
+                    <soan class="tempsRestant"></span>
+                </div>
+                <div class="nav navbar-collapse collapse">
+                    <ul class="nav navbar-nav nav"></ul>
+                    <ul class="nav navbar-nav navbar-right">
+                    </ul>
+                </div>
+            </div>
+            <div class="container">
+                {% block content %}
 
-{% block js %}
-	{{ parent() }}
-	<script type="text/javascript" src="{{ asset('js/models/Model.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/collections/QuestionPaginatedCollection.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/views/QuestionAppView.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/views/stagiaires/QuestionView.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/views/stagiaires/QuestionPaginationView.js') }}"></script>
-{% endblock %}
+                	<div id="question-list"></div>
+					<div class="question"></div>
+					<div id="question-pagination"></div>
 
-{% block content %}
-	
-	<div id="question-list"></div>
-	<div class="question"></div>
-	<div id="question-pagination"></div>
+					<script type="text/javascript">
 
-
-<script type="text/javascript">
-
-	$(function() {
-		var collectionQuestions = new QuestionPaginatedCollection({{ questions|json_encode|raw }}, {
-			displayPerPage: 1
-		});
-		
-		var questionsView = new QuestionAppView({collection: collectionQuestions, dureeTest: "{{ dureeTest|date('i:s') }}"});
-		var paginationView = new QuestionPaginationView({collection: collectionQuestions});
-		collectionQuestions.pager();
-	});
-</script>
-{% endblock %}
+						$(function() {
+							var collectionQuestions = new QuestionPaginatedCollection({{ questions|json_encode|raw }}, {
+								displayPerPage: 1
+							});
+							
+							var questionsView = new QuestionAppView({collection: collectionQuestions, dureeTest: "{{ dureeTest|date('i:s') }}"});
+							var paginationView = new QuestionPaginationView({collection: collectionQuestions});
+							collectionQuestions.pager();
+						});
+					</script>
+                {% endblock %}
+            </div>
+        </body>
+    {% endblock %}
+</html>
+{% endspaceless %}
