@@ -157,3 +157,12 @@ th.theme, td.theme, th.promo, td.promo {
 	font-weight: bold;
 	font-family: cursive;
 }
+
+.countdown {
+	font-size: 1.5em;
+	color: red;
+	font-weight: bold;
+	position: absolute;
+	right: 30px;
+	top: 10px;
+}

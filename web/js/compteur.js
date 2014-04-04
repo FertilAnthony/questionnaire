@@ -14,7 +14,7 @@ countdownManager = {
         this.displayElement.hour = $('#countdown_hour');
         this.displayElement.min = $('#countdown_min');
         this.displayElement.sec = $('#countdown_sec');
-
+console.log(this.targetTime);
         // Lancement du compte à rebours
         this.tick(); // Premier tick tout de suite
         window.setInterval(function() {
@@ -32,12 +32,32 @@ countdownManager = {
             timeNow = this.targetTime;
         }
 
-        // Calcul du temps restant
-        var diff = this.dateDiff(timeNow, this.targetTime);
+        // Calcul du temps restant 
+        var diff = this.dateDiff(timeNow, this.targetTime),
+            hour = '',
+            min = '',
+            sec = '';
+        if (diff.hour >= 0 && diff.hour <= 9) {
+            hour = '0' + diff.hour;
+        } else {
+            hour = diff.hour;
+        }
+        if (diff.min >= 0 && diff.min <= 9) {
+            min = '0' + diff.min;
+        } else {
+            min = diff.min;
+        }
+        if (diff.sec >= 0 && diff.sec <= 9) {
+            sec = '0' + diff.sec;
+        } else {
+            sec = diff.sec;
+        }
 
-        this.displayElement.hour.text(diff.hour);
-        this.displayElement.min.text(diff.min);
-        this.displayElement.sec.text(diff.sec);
+        this.displayElement.hour.text(hour);
+        this.displayElement.min.text(min);
+        this.displayElement.sec.text(sec);
+
+        localStorage.setItem('time', JSON.stringify(diff));
     },
 
     // Calcul la différence entre 2 dates, en jour/heure/minute/seconde

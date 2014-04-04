@@ -39,8 +39,8 @@
                     <span class="navbar-brand" href="#">{{ app.user }} - {{ app.user.promotion }}</span>
                     <span class="nomTest"></span>
                     <span class="countdown">
-                        <span id="countdown_hour"></span>
-                        <span id="countdown_min"></span>
+                        <span id="countdown_hour"></span>:
+                        <span id="countdown_min"></span>:
                         <span id="countdown_sec"></span>
                     </span>
                 </div>
@@ -69,11 +69,38 @@
 							collectionQuestions.pager();
 
 							var endTest = new Date();
-                            {% if dureeTest|date('H') != 0 %}
-                                endTest.setHours({{ dureeTest|date('H')}});
-                            console.log(endTest);
-							countdownManager.targetTime = new Date("{{ dureeTest|date('Y-m-d H:i:s') }}");
+                            // On test qu'il n'y a pas de temps sauvegarder dans le localStorage
+                            if (localStorage.getItem('time')) {
+                            	var time = JSON.parse(localStorage.getItem('time'));
+                            	console.log(time['sec']);
+                            	if (time['hour'] != 0) {
+                            		endTest.setHours(parseInt(endTest.getHours()) + time['hour']);
+                            	}
+                            	if(time['min'] != 0) {
+                            		endTest.setMinutes(parseInt(endTest.getMinutes()) + time['min']);
+                            	}
+                            	if (time['sec'] != 0) {
+                            		endTest.setSeconds(parseInt(endTest.getSeconds()) + time['sec']);
+                            	}
+
+                            } else {
+
+	                            {% if dureeTest|date('H') != 0 %}
+	                                endTest.setHours(parseInt(endTest.getHours()) + {{ dureeTest|date('H')}});
+	                            {% endif %}
+	                            console.log(endTest);
+	                            {% if dureeTest|date('i') != 0 %}
+	                                endTest.setMinutes(parseInt(endTest.getMinutes()) + {{ dureeTest|date('i')}});
+	                            {% endif %}
+	                            console.log(endTest);
+	                            {% if dureeTest|date('s') != 0 %}
+	                                endTest.setSeconds(parseInt(endTest.getSeconds()) + {{ dureeTest|date('s')}});
+	                            {% endif %}
+                            }
+
+                            countdownManager.targetTime = new Date(endTest);
 							countdownManager.init();
+							
 						});
 					</script>
                 {% endblock %}
