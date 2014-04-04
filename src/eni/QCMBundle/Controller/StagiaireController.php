@@ -66,6 +66,7 @@ class StagiaireController extends Controller
      */
     public function saveQuestionTestAction(Request $request, Inscription $inscription) {
 
+        // TODO : Il faudra mettre en place une vérification pour la reprise de test
     	// Il faut récupérer aléatoirement : X questions par thème définis dans les sections d'un test
     	$randomQuestions = new ArrayCollection();
     	$themeRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:Theme');

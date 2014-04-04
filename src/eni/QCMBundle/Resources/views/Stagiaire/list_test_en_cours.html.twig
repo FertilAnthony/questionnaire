@@ -54,14 +54,16 @@ Liste des tests en cours
                         url: "{{ path('generate-question') }}/" + id,
                         method: "POST"
                     }).done(function(msg) {
-                        btn.attr('disabled', true);
+                        // TODO désactivé bouton
+                        btn.prop('disabled', true);
                         btn.button('done');
                         $('#confirmationTestPassage .modal-body').html('<p>Génération aléatoire des questions réalisée avec succès, le questionnaire va bientôt débuter.</p>');
                         setTimeout(function() {
                             window.location = "{{ path('passage-test') }}/" + id;
                         }, 5000);
                     }).fail(function(msg) {
-                        btn.attr('disabled', 'disabled');
+                        // TODO désactivé bouton
+                        btn.prop('disabled', true);
                         btn.button('error');
                         $('#confirmationTestPassage .modal-title').html('ERREUR');
                         $('#confirmationTestPassage .modal-body').html('<p>Une erreur est survenue lors de la génération des questions, veuillez réessayer plus tard.</p>');
