@@ -4,5 +4,25 @@
 	Passage d'un test
 {% endblock %}
 
+{% block js %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('js/models/Model.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/collections/QuestionPaginatedCollection.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/views/QuestionAppView.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/views/stagiaires/QuestionView.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/views/stagiaires/QuestionPaginationView.js') }}"></script>
+{% endblock %}
+
 {% block content %}
+
+
+<script type="text/javascript">
+
+	$(function() {
+		/*var collectionQuestion = new QuestionPaginatedCollection(, {
+			displayPerPage: 1
+		});
+		console.log(collectionQuestion);*/
+	});
+</script>
 {% endblock %}

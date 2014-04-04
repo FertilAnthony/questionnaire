@@ -1,11 +1,11 @@
-var UtilisateurPaginatedCollection = Backbone.Paginator.clientPager.extend({
+var QuestionPaginatedCollection = Backbone.Paginator.clientPager.extend({
     // As usual, let's specify the model to be used
     // with this collection
-    model: UserModel,
+    model: Model,
     // current page to query from the service
     page: 1,
     // how many results to display per 'client page'
-    displayPerPage: 20,
+    displayPerPage: 1,
     // what field should the results be sorted on?
     sortField: undefined,
     // what direction should the results be sorted in?
@@ -13,7 +13,7 @@ var UtilisateurPaginatedCollection = Backbone.Paginator.clientPager.extend({
 
     initialize: function(models, options) {
         options = _.defaults(options || {}, {
-            displayPerPage: 20
+            displayPerPage: 1
         });
         this.displayPerPage = options.displayPerPage;
     },

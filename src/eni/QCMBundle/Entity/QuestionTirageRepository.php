@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class QuestionTirageRepository extends EntityRepository
 {
 
-	public function getIdQuestionTirage($offset = 0) {
+	public function getQuestionTirage($offset = 0) {
 
 		$qb = $this->createQueryBuilder('qt');
 
@@ -22,5 +22,13 @@ class QuestionTirageRepository extends EntityRepository
 
 		return $qb->getQuery()
 				  ->getSingleResult();
+	}
+
+	public function getQuestionsTirage() {
+
+		$qb = $this->createQueryBuilder('qt');
+
+		return $qb->getQuery()
+				  ->getResult();
 	}
 }

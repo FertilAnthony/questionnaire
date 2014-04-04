@@ -19,9 +19,18 @@ class ThemeRepository extends EntityRepository
         
         $nbQuestionsByTheme = $theme->getQuestions()->count();
 
+        // Récupération des ids
+        $ids = [];
+        foreach($theme->getQuestions() as $question) {
+            $ids[] = $question->getId();
+        }
+        //compte et tri les ids
+        $nbIds = count($ids);
+        sort($ids);
+
         $idUsed = [];
         for ($i = 0; $i < $nbQuestions; $i++) {
-            $randomId = rand(1, intval($nbQuestionsByTheme));
+            $randomId = rand($ids[0], $ids[$nbIds-1]);
             while (in_array($randomId, $idUsed)) {
                 $randomId = rand(1, intval($nbQuestionsByTheme));
             }

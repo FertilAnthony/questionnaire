@@ -69,7 +69,7 @@ class StagiaireController extends Controller
 
         // TODO : Il faudra mettre en place une vérification pour la reprise de test
     	// Il faut récupérer aléatoirement : X questions par thème définis dans les sections d'un test
-    	$randomQuestions = new ArrayCollection();
+    	$randomQuestions = [];
     	$themeRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:Theme');
     	$questionRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:Question');
     	// On récupère le test lié a l'inscription
@@ -79,14 +79,12 @@ class StagiaireController extends Controller
     	// pour chaque section du test, on récupère le nombre de question et le thème
     	foreach ($sections as $section) {
     		$nbQuestions = $section->getNbQuestion();
-    		var_dump($nbQuestions);
     		$theme = $section->getTheme();
     		// On rècupère les X questions du thème pour la section
     		$randomIdQuestions = $themeRepository->getRandomQuestionIdsByTheme($nbQuestions, $theme);
     		$randomQuestions = $questionRepository->getRandomQuestionsByTheme($randomIdQuestions);
     		// On sauvegarde les questions sélectionnées dans la table questions_tirage
             foreach ($randomQuestions as $question) {
-                var_dump($question[0]);
                 $questionTirage = new QuestionTirage();
                 $questionTirage->setQuestion($question[0]);
                 $questionTirage->setInscription($inscription);
@@ -109,14 +107,36 @@ class StagiaireController extends Controller
      */
     public function makeTestAction(Inscription $inscription, Question $question) {
 
-        // Récupération de la première question ainsi que du temps pour le passage du test
+        // Récupération de toutes les questions ainsi que du temps pour le passage du test
         $questionTirage = new QuestionTirage();
+        $questions = [];
         $questionTirageRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:QuestionTirage');
-        $questionTirage = $questionTirageRepository->getIdQuestionTirage();
+        $questionRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:Question');
+        $questionsTirage = $questionTirageRepository->getQuestionsTirage();
 
-        var_dump($questionTirage);
+        foreach($questionsTirage as $questionTirage) {
+            $question = $questionTirage->getQuestion();
+            $reponses = $question->getReponses();
+            $libelleReponses = [];
+            foreach($reponses as $reponse) {
+                $libelleReponses[] = $reponse->getLibelle();
+            }
+            $questions[] =  [
+                'id' => $question->getId(),
+                'enonce' => $question->getEnonce(),
+                'type' => $question->getType(),
+                'reponses' => $libelleReponses
+            ];
+        }
+        //var_dump($questions);
+        /*$question = $questionTirage->getQuestion();
+        var_dump($question->getReponses());*/
+
+        // On récupère le test lié a l'inscription
+        $test = $inscription->getTest();
+        $dureeTest = $test->getDuree();
 
         return $this->render('eniQCMBundle:Stagiaire:passage_test.html.twig',array(
-            'first_question' => $questionTirage));
+            'dureeTest' => $dureeTest));
     }
 }

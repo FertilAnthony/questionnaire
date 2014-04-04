@@ -40,7 +40,6 @@ Liste des tests en cours
     			e.stopImmediatePropagation();
     			var nomTest = $(this).data('test'),
     				id = $(this).data('id');
-    				console.log(id);
 
                 // Génération de la modal et son contenu
                 $('#confirmationTestPassage .modal-body').html('<p>Vous êtes sur le point de commencer le test "' + nomTest + '". Êtes-vous sûr de vouloir continuer ?</p>');
@@ -69,10 +68,6 @@ Liste des tests en cours
                         $('#confirmationTestPassage .modal-body').html('<p>Une erreur est survenue lors de la génération des questions, veuillez réessayer plus tard.</p>');
                     });
                 });
-
-    			//$('#confirmationTestPassage .confirmButton').attr('href', "{{ path('passage-test') }}/" + id);
-    			console.log($(this).attr('href'));
-    			
     		});
     	});
     </script>
