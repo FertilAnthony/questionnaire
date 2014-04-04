@@ -16,6 +16,7 @@
 			<script type="text/javascript" src="{{ asset('js/views/QuestionAppView.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('js/views/stagiaires/QuestionView.js') }}"></script>
 			<script type="text/javascript" src="{{ asset('js/views/stagiaires/QuestionPaginationView.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('js/compteur.js') }}"></script>
         {% endblock %}
 
         {% block css %}
@@ -37,7 +38,11 @@
                     </button>
                     <span class="navbar-brand" href="#">{{ app.user }} - {{ app.user.promotion }}</span>
                     <span class="nomTest"></span>
-                    <soan class="tempsRestant"></span>
+                    <span class="countdown">
+                        <span id="countdown_hour"></span>
+                        <span id="countdown_min"></span>
+                        <span id="countdown_sec"></span>
+                    </span>
                 </div>
                 <div class="nav navbar-collapse collapse">
                     <ul class="nav navbar-nav nav"></ul>
@@ -59,9 +64,16 @@
 								displayPerPage: 1
 							});
 							
-							var questionsView = new QuestionAppView({collection: collectionQuestions, dureeTest: "{{ dureeTest|date('i:s') }}"});
+							var questionsView = new QuestionAppView({collection: collectionQuestions, dureeTest: "{{ dureeTest|date('H:i:s') }}"});
 							var paginationView = new QuestionPaginationView({collection: collectionQuestions});
 							collectionQuestions.pager();
+
+							var endTest = new Date();
+                            {% if dureeTest|date('H') != 0 %}
+                                endTest.setHours({{ dureeTest|date('H')}});
+                            console.log(endTest);
+							countdownManager.targetTime = new Date("{{ dureeTest|date('Y-m-d H:i:s') }}");
+							countdownManager.init();
 						});
 					</script>
                 {% endblock %}

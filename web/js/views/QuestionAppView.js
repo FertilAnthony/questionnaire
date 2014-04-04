@@ -1,8 +1,9 @@
 var QuestionAppView = Backbone.View.extend({
     el: '#question-list',
     events: {},
-    initialize: function() {
+    initialize: function(options) {
         var collection = this.collection;
+        this.dureeTest = options.dureeTest;
         collection.on('add', this.addOne, this);
         collection.on('reset', this.addAll, this);
         collection.on('all', this.render, this);
