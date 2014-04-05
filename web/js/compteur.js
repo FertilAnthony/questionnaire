@@ -53,11 +53,24 @@ console.log(this.targetTime);
             sec = diff.sec;
         }
 
-        this.displayElement.hour.text(hour);
-        this.displayElement.min.text(min);
-        this.displayElement.sec.text(sec);
 
-        localStorage.setItem('time', JSON.stringify(diff));
+        // On vérifie que le localStorage n'a pas été changé
+        var time = JSON.parse(localStorage.getItem('time'));
+        if ((time['hour'] > diff.hour) || ((time['hour'] == diff.hour) && (time['min'] > diff.min))) {
+            alert("Temps modifié !!!");
+            this.displayElement.hour.text(0);
+            this.displayElement.min.text(0);
+            this.displayElement.sec.text(0);
+            // Mettre en place requete Ajax qui termine le questionnaire et envoie résultat au serveur
+
+        } else {
+            this.displayElement.hour.text(hour);
+            this.displayElement.min.text(min);
+            this.displayElement.sec.text(sec);
+
+            localStorage.setItem('time', JSON.stringify(diff));
+        }
+
     },
 
     // Calcul la différence entre 2 dates, en jour/heure/minute/seconde
