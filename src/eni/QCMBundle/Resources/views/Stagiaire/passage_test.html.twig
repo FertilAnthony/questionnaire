@@ -71,7 +71,8 @@
 							var endTest = new Date();
                             // On test qu'il n'y a pas de temps sauvegarder dans le localStorage
                             if (localStorage.getItem('time')) {
-                            	var time = JSON.parse(localStorage.getItem('time'));
+                            	var time = JSON.parse(localStorage.getItem('time')),
+                            		first = false;
                             	console.log(time['sec']);
                             	if (time['hour'] != 0) {
                             		endTest.setHours(parseInt(endTest.getHours()) + time['hour']);
@@ -96,10 +97,12 @@
 	                            {% if dureeTest|date('s') != 0 %}
 	                                endTest.setSeconds(parseInt(endTest.getSeconds()) + {{ dureeTest|date('s')}});
 	                            {% endif %}
+
+	                            var first = true;
                             }
 
                             countdownManager.targetTime = new Date(endTest);
-							countdownManager.init();
+							countdownManager.init(first);
 							
 						});
 					</script>

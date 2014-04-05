@@ -1,6 +1,7 @@
 countdownManager = {
     // Configuration
     targetTime: null, // Date cible du compte à rebours (00:00:00)
+    interval:null,
     displayElement: { // Elements HTML où sont affichés les informations
         hour: null,
         min: null,
@@ -8,22 +9,22 @@ countdownManager = {
     },
 
     // Initialisation du compte à rebours (à appeler 1 fois au chargement de la page)
-    init: function() {
+    init: function(first) {
         // Récupération des références vers les éléments pour l'affichage
         // La référence n'est récupérée qu'une seule fois à l'initialisation pour optimiser les performances
         this.displayElement.hour = $('#countdown_hour');
         this.displayElement.min = $('#countdown_min');
         this.displayElement.sec = $('#countdown_sec');
-console.log(this.targetTime);
+
         // Lancement du compte à rebours
-        this.tick(); // Premier tick tout de suite
-        window.setInterval(function() {
-            countdownManager.tick();
+        this.tick(first); // Premier tick tout de suite
+        this.interval = window.setInterval(function() {
+            countdownManager.tick(false);
         }, 1000); // Ticks suivant, répété toutes les secondes (1000 ms)
     },
 
     // Met à jour le compte à rebours (tic d'horloge)
-    tick: function() {
+    tick: function(first) {
         // Instant présent
         var timeNow = new Date();
 
@@ -54,16 +55,31 @@ console.log(this.targetTime);
         }
 
 
-        // On vérifie que le localStorage n'a pas été changé
-        var time = JSON.parse(localStorage.getItem('time'));
-        if ((time['hour'] > diff.hour) || ((time['hour'] == diff.hour) && (time['min'] > diff.min))) {
-            alert("Temps modifié !!!");
-            this.displayElement.hour.text(0);
-            this.displayElement.min.text(0);
-            this.displayElement.sec.text(0);
-            // Mettre en place requete Ajax qui termine le questionnaire et envoie résultat au serveur
+        // Test si premier passage
+        if (!first) {
+            // On vérifie que le localStorage n'a pas été changé
+            var time = JSON.parse(localStorage.getItem('time'));
+            if ((time['hour'] > diff.hour) || ((time['hour'] == diff.hour) && (time['min'] > diff.min))) {
+                alert("Temps modifié !!!");
+                this.displayElement.hour.text('00');
+                this.displayElement.min.text('00');
+                this.displayElement.sec.text('00');
+                clearInterval(this.interval);
+                // Mettre en place requete Ajax qui termine le questionnaire et envoie résultat au serveur
 
+            } else {
+                if (diff.hour == 0 && diff.min == 0 && diff.sec == 0) {
+                    clearInterval(this.interval);
+                } else {
+                    this.displayElement.hour.text(hour);
+                    this.displayElement.min.text(min);
+                    this.displayElement.sec.text(sec);
+
+                    localStorage.setItem('time', JSON.stringify(diff));
+                }
+            }
         } else {
+            console.log('test');
             this.displayElement.hour.text(hour);
             this.displayElement.min.text(min);
             this.displayElement.sec.text(sec);
