@@ -157,6 +157,13 @@ th.theme, td.theme, th.promo, td.promo {
 	font-weight: bold;
 	font-family: cursive;
 }
+#question-pagination .questionMarquee {
+	position: absolute;
+	top: 70px;
+	right: 45px;
+	font-size: 1.1em;
+	font-family: cursive;
+}
 
 .countdown {
 	font-size: 1.5em;
@@ -165,4 +172,25 @@ th.theme, td.theme, th.promo, td.promo {
 	position: absolute;
 	right: 30px;
 	top: 10px;
+}
+
+.question .enonceQuestion {
+	margin-left: -25px;
+}
+.question .reponsesQuestion {
+	margin-left: 10px;
+}
+.recapitulatif {
+	float: right;
+	margin-top: -17px;
+}
+.paginationQuestion .prev {
+	margin-right: 15px;
+}
+.paginationQuestion .next {
+	margin-left: 15px;
+}
+.paginationQuestion {
+	display: block;
+	text-align: center;
 }

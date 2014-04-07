@@ -54,8 +54,26 @@
                 {% block content %}
 
                 	<div id="question-list"></div>
-					<div class="question"></div>
+					<div class="question jumbotron"></div>
 					<div id="question-pagination"></div>
+
+                    <div id="confirmationRecapitulatif" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Confirmation</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Ce bouton vous envoie directement à la page récapitulative. Vous pourrez revenir aux différentes questions à partir de celle-ci.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                    <a href="#" class="btn btn-success confirmButton" id="confirm-recapitulatif" d>Oui</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 					<script type="text/javascript">
 
@@ -64,8 +82,8 @@
 								displayPerPage: 1
 							});
 							
-							var questionsView = new QuestionAppView({collection: collectionQuestions, dureeTest: "{{ dureeTest|date('H:i:s') }}"});
-							var paginationView = new QuestionPaginationView({collection: collectionQuestions});
+							var questionsView = new QuestionAppView({collection: collectionQuestions});
+							var paginationView = new QuestionPaginationView({collection: collectionQuestions, });
 							collectionQuestions.pager();
 
 							var endTest = new Date();
@@ -73,7 +91,6 @@
                             if (localStorage.getItem('time')) {
                             	var time = JSON.parse(localStorage.getItem('time')),
                             		first = false;
-                            	console.log(time['sec']);
                             	if (time['hour'] != 0) {
                             		endTest.setHours(parseInt(endTest.getHours()) + time['hour']);
                             	}
@@ -89,11 +106,9 @@
 	                            {% if dureeTest|date('H') != 0 %}
 	                                endTest.setHours(parseInt(endTest.getHours()) + {{ dureeTest|date('H')}});
 	                            {% endif %}
-	                            console.log(endTest);
 	                            {% if dureeTest|date('i') != 0 %}
 	                                endTest.setMinutes(parseInt(endTest.getMinutes()) + {{ dureeTest|date('i')}});
 	                            {% endif %}
-	                            console.log(endTest);
 	                            {% if dureeTest|date('s') != 0 %}
 	                                endTest.setSeconds(parseInt(endTest.getSeconds()) + {{ dureeTest|date('s')}});
 	                            {% endif %}

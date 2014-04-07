@@ -1,7 +1,7 @@
 countdownManager = {
     // Configuration
     targetTime: null, // Date cible du compte à rebours (00:00:00)
-    interval:null,
+    interval: null,
     displayElement: { // Elements HTML où sont affichés les informations
         hour: null,
         min: null,
@@ -59,7 +59,7 @@ countdownManager = {
         if (!first) {
             // On vérifie que le localStorage n'a pas été changé
             var time = JSON.parse(localStorage.getItem('time'));
-            if ((time['hour'] > diff.hour) || ((time['hour'] == diff.hour) && (time['min'] > diff.min))) {
+            if ((time['hour'] > diff.hour) || ((time['hour'] == diff.hour) && (time['min'] > parseInt(diff.min) + 1))) {
                 alert("Temps modifié !!!");
                 this.displayElement.hour.text('00');
                 this.displayElement.min.text('00');
@@ -70,16 +70,14 @@ countdownManager = {
             } else {
                 if (diff.hour == 0 && diff.min == 0 && diff.sec == 0) {
                     clearInterval(this.interval);
-                } else {
-                    this.displayElement.hour.text(hour);
-                    this.displayElement.min.text(min);
-                    this.displayElement.sec.text(sec);
-
-                    localStorage.setItem('time', JSON.stringify(diff));
                 }
+                this.displayElement.hour.text(hour);
+                this.displayElement.min.text(min);
+                this.displayElement.sec.text(sec);
+
+                localStorage.setItem('time', JSON.stringify(diff));
             }
         } else {
-            console.log('test');
             this.displayElement.hour.text(hour);
             this.displayElement.min.text(min);
             this.displayElement.sec.text(sec);

@@ -1,5 +1,5 @@
 var QuestionView = Backbone.View.extend({
-    el: '.question',
+    el: '.question.jumbotron',
 
     initialize: function() {
         this.question = this.model;

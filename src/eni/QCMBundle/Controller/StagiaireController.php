@@ -65,7 +65,7 @@ class StagiaireController extends Controller
      * @Route("/generate_question/{id}", name="generate-question", options={"expose"=true}, defaults={"id"=0})
      * @Method({"POST"})
      */
-    public function saveQuestionTestAction(Request $request, Inscription $inscription) {
+    public function generateQuestionsTestAction(Request $request, Inscription $inscription) {
 
         // TODO : Il faudra mettre en place une vérification pour la reprise de test
     	// Il faut récupérer aléatoirement : X questions par thème définis dans les sections d'un test
@@ -139,5 +139,13 @@ class StagiaireController extends Controller
         return $this->render('eniQCMBundle:Stagiaire:passage_test.html.twig',array(
             'questions' => $questions,
             'dureeTest' => $dureeTest));
+    }
+
+    /**
+     * @Route("/save_question/{id}", name="save-question", options={"expose"=true}, defaults={"id"=0})
+     * @Method({"POST"})
+     */
+    public function saveQuestionTestAction(Request $request, Inscription $inscription) {
+
     }
 }
