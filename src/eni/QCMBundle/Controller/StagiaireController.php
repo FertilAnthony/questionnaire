@@ -156,8 +156,10 @@ class StagiaireController extends Controller
         $questionTirage = $questionTirageRepository->findOneById($idQuestionTirage);
 
         // On vérifie si la question est marquée
-        if ($_POST['estMarquee']) {
+        if ($_POST['estMarquee'] == 'true') {
             $questionTirage->setEstMarquee(true);
+        } else {
+            $questionTirage->setEstMarquee(false);
         }
 
         if (!empty($_POST['responses'])) {
