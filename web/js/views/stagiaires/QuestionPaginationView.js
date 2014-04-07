@@ -1,12 +1,14 @@
 var QuestionPaginationView = Backbone.View.extend({
     el: '#question-pagination',
     events: {
+        'click a.save': 'saveResponse',
         'click a.prev': 'gotoPrev',
-        'click a.next': 'gotoNext',
-        'click a.save': 'saveResponse'
+        'click a.next': 'gotoNext'
     },
-    initialize: function() {
+    initialize: function(options) {
         var self = this;
+        console.log(self.collection);
+        self.route = options.route;
         this.template = self.constructor.template;
         this.collection.on('reset', this.render, this);
         this.collection.on('add', this.render, this);
@@ -28,7 +30,33 @@ var QuestionPaginationView = Backbone.View.extend({
 
     saveResponse: function(e) {
         e.preventDefault();
-        var self = this;
+        var self = this,
+            responses = new Array(),
+            idQuestionCollection = parseInt(this.collection.page) - 1,
+            idQuestionTirage = this.collection.models[idQuestionCollection].attributes.idQuestionTirage,
+            estMarquee = $('.inputQuestionMarquee').prop('checked') ? true : false;
+
+        $('.elementReponse').each(function() {
+            if ($(this).prop('checked')) {
+                responses.push($(this).val());
+            }
+        });
+
+        if (estMarquee || responses.length) {
+            $.ajax({
+                url: self.route,
+                method: "POST",
+                data: {
+                    responses: responses,
+                    idQuestionTirage: idQuestionTirage,
+                    estMarquee: estMarquee
+                }
+            }).done(function(msg) {
+
+            }).fail(function(msg) {
+                alert('Une erreur innatendue est survenue, veuillez prévenir le formateur');
+            });
+        }
 
     }
 

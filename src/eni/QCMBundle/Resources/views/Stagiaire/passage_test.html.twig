@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
-                                    <a href="#" class="btn btn-success confirmButton" id="confirm-recapitulatif" d>Oui</a>
+                                    <a href="#" class="btn btn-success confirmButton" id="confirm-recapitulatif" >Oui</a>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
 							});
 							
 							var questionsView = new QuestionAppView({collection: collectionQuestions});
-							var paginationView = new QuestionPaginationView({collection: collectionQuestions, });
+							var paginationView = new QuestionPaginationView({collection: collectionQuestions, route:"{{ path('save-question') }}"});
 							collectionQuestions.pager();
 
 							var endTest = new Date();

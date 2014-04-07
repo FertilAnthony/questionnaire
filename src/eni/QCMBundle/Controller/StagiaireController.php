@@ -128,7 +128,8 @@ class StagiaireController extends Controller
                 'id' => $question->getId(),
                 'enonce' => $question->getEnonce(),
                 'type' => $question->getType(),
-                'reponses' => $libelleReponses
+                'reponses' => $libelleReponses,
+                'idQuestionTirage' => $questionTirage->getId()
             ];
         }
 
@@ -142,10 +143,37 @@ class StagiaireController extends Controller
     }
 
     /**
-     * @Route("/save_question/{id}", name="save-question", options={"expose"=true}, defaults={"id"=0})
+     * @Route("/save_question", name="save-question", options={"expose"=true})
      * @Method({"POST"})
      */
-    public function saveQuestionTestAction(Request $request, Inscription $inscription) {
+    public function saveQuestionTirageAction(Request $request) {
 
+        $reponses = new ArrayCollection();
+        $idQuestionTirage = $_POST['idQuestionTirage'];
+        $reponseRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:Reponse');
+        // On récupère la question tirage
+        $questionTirageRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:QuestionTirage');
+        $questionTirage = $questionTirageRepository->findOneById($idQuestionTirage);
+
+        // On vérifie si la question est marquée
+        if ($_POST['estMarquee']) {
+            $questionTirage->setEstMarquee(true);
+        }
+
+        if (!empty($_POST['responses'])) {
+            $reponsesId = $_POST['responses'];
+            foreach ($reponsesId as $reponseId) {
+                $reponse = $reponseRepository->findOneById($reponseId);
+                $reponses->add($reponse);
+            }
+            $questionTirage->setReponses($reponses);
+        }
+
+        // On persite et on sauvegarde
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($questionTirage);
+        $em->flush();
+
+        return new Response('ok');
     }
 }

@@ -3,6 +3,7 @@ var QuestionAppView = Backbone.View.extend({
     events: {},
     initialize: function(options) {
         var collection = this.collection;
+        this.route = options.route;
         collection.on('add', this.addOne, this);
         collection.on('reset', this.addAll, this);
         collection.on('all', this.render, this);
@@ -13,7 +14,8 @@ var QuestionAppView = Backbone.View.extend({
     },
     addOne: function(item) {
         var view = new QuestionView({
-            model: item
+            model: item,
+            route: this.route
         });
 
         // Appelle le render pour injecter le code HTML des utilisateurs
