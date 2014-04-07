@@ -24,9 +24,12 @@ class QuestionTirageRepository extends EntityRepository
 				  ->getSingleResult();
 	}
 
-	public function getQuestionsTirage() {
+	public function getQuestionsTirage($inscription) {
 
 		$qb = $this->createQueryBuilder('qt');
+
+		$qb->where('qt.inscription = :inscription')
+			->setParameter('inscription', $inscription);
 
 		return $qb->getQuery()
 				  ->getResult();

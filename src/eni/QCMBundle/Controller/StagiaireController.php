@@ -112,7 +112,7 @@ class StagiaireController extends Controller
         $questions = [];
         $questionTirageRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:QuestionTirage');
         $questionRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:Question');
-        $questionsTirage = $questionTirageRepository->getQuestionsTirage();
+        $questionsTirage = $questionTirageRepository->getQuestionsTirage($inscription);
 
         foreach($questionsTirage as $questionTirage) {
             $question = $questionTirage->getQuestion();
@@ -180,12 +180,14 @@ class StagiaireController extends Controller
     }
 
     /**
-     * @Route("/correction_test", name="correction-test", options={"expose"=true})
+     * @Route("/correction_test/{id}", name="correction-test", options={"expose"=true}, defaults={"id"=0})
      * @Method({"POST"})
      */
-    public function CorrectionTestAction(Request $request) {
+    public function CorrectionTestAction(Request $request, Inscription $inscription) {
 
-        
+        // Récupération des réponses sauvegarder en base et calcul du résultat
+        $questionTirageRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:QuestionTirage');
+        $listeQuestionsTirage = $questionTirageRepository->findByInscription($inscription->getId());
     }
 
 }
