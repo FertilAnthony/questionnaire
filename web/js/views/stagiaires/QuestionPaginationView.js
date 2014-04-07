@@ -43,6 +43,7 @@ var QuestionPaginationView = Backbone.View.extend({
         });
 
         if (estMarquee || responses.length) {
+            // Requète ajax pour sauvegarder les réponses en base
             $.ajax({
                 url: self.route,
                 method: "POST",
@@ -56,6 +57,12 @@ var QuestionPaginationView = Backbone.View.extend({
             }).fail(function(msg) {
                 alert('Une erreur innatendue est survenue, veuillez prévenir le formateur');
             });
+
+            // On sauvegarde également dans le localStorage pour éviter de récupérer les réponses via une requète ajax
+            localStorage.setItem(idQuestionTirage, JSON.stringify({
+                'reponses': responses,
+                'estMarquee': estMarquee
+            }));
         }
 
     }

@@ -81,9 +81,9 @@
 							var collectionQuestions = new QuestionPaginatedCollection({{ questions|json_encode|raw }}, {
 								displayPerPage: 1
 							});
-							
-							var questionsView = new QuestionAppView({collection: collectionQuestions});
 							var paginationView = new QuestionPaginationView({collection: collectionQuestions, route:"{{ path('save-question') }}"});
+							var questionsView = new QuestionAppView({collection: collectionQuestions});
+							
 							collectionQuestions.pager();
 
 							var endTest = new Date();

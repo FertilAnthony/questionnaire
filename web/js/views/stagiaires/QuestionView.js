@@ -21,6 +21,19 @@ var QuestionView = Backbone.View.extend({
         this.$el.html(self.template({
             question: self.question.toJSON()
         }));
+        // On test si il y a des réponses de sauvegarder dans le localStorage
+        if (localStorage.getItem(self.question.attributes.idQuestionTirage)) {
+            var storage = JSON.parse(localStorage.getItem(self.question.attributes.idQuestionTirage)),
+                reponsesId = storage['reponses'];
+
+            _.each(reponsesId, function(id) {
+                $('#' + id).prop('checked', true);
+            });
+            if (storage.estMarquee) {
+                console.log($('.inputQuestionMarquee'));
+                $('.inputQuestionMarquee').prop('checked', true);
+            }
+        }
         return self;
     },
 
