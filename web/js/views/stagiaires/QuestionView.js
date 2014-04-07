@@ -1,12 +1,10 @@
 var QuestionView = Backbone.View.extend({
     el: '.question.jumbotron',
 
-    events: {
-        'click #confirm-recapitulatif': 'gotoRecapitulatif'
-    },
-
-    initialize: function() {
+    initialize: function(options) {
         this.question = this.model;
+        this.page = options.page;
+        this.previousPageQuestion = options.previousPageQuestion;
         this.question.bind('change', this.render, this);
         this.question.bind('destroy', this.remove, this);
     },
@@ -35,11 +33,8 @@ var QuestionView = Backbone.View.extend({
             }
         }
         return self;
-    },
-
-    gotoRecapitulatif: function(e) {
-        e.preventDefault();
     }
+
 }, {
 
     templateQuestionSimple: _.template('\
@@ -58,8 +53,5 @@ var QuestionView = Backbone.View.extend({
                 <input type="checkbox" name="reponse" id="<%= reponse.id %>" class="elementReponse" value="<%= reponse.id %>"/> <label for="<%= reponse.id %>"><%= reponse.libelle %></label><br />\
             <% }); %>\
         </div>\
-    '),
-
-    templateRecapitulatif: _.template('\
     ')
 });

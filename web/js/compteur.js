@@ -70,6 +70,8 @@ countdownManager = {
             } else {
                 if (diff.hour == 0 && diff.min == 0 && diff.sec == 0) {
                     clearInterval(this.interval);
+
+                    validateQuestionnaire.init();
                 }
                 this.displayElement.hour.text(hour);
                 this.displayElement.min.text(min);

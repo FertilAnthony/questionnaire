@@ -178,4 +178,14 @@ class StagiaireController extends Controller
 
         return new Response('ok');
     }
+
+    /**
+     * @Route("/correction_test", name="correction-test", options={"expose"=true})
+     * @Method({"POST"})
+     */
+    public function CorrectionTestAction(Request $request) {
+
+        
+    }
+
 }

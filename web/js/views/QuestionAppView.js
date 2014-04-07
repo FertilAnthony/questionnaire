@@ -14,7 +14,8 @@ var QuestionAppView = Backbone.View.extend({
     addOne: function(item) {
         var view = new QuestionView({
             model: item,
-            page: this.collection.page
+            page: this.collection.page,
+            previousPageQuestion: this.collection.previousPageQuestion
         });
 
         view.render();

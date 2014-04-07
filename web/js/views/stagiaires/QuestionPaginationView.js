@@ -3,7 +3,9 @@ var QuestionPaginationView = Backbone.View.extend({
     events: {
         'click a.save': 'saveResponse',
         'click a.prev': 'gotoPrev',
-        'click a.next': 'gotoNext'
+        'click a.next': 'gotoNext',
+        'click .recapitulatif': 'gotoRecapitulatif',
+        'click .cloturer': 'correctionTest'
     },
     initialize: function(options) {
         var self = this;
@@ -63,6 +65,18 @@ var QuestionPaginationView = Backbone.View.extend({
             'estMarquee': estMarquee
         }));
 
+    },
+
+    gotoRecapitulatif: function(e) {
+        e.preventDefault();
+        var self = this;
+
+        self.template = self.constructor.templateRecapitulatif;
+        $('.container').html(self.template());
+    },
+
+    correctionTest: function() {
+
     }
 
 }, {
@@ -87,6 +101,13 @@ var QuestionPaginationView = Backbone.View.extend({
                  <button type="button" class="btn btn-default recapitulatif" data-toggle="modal" data-target="#confirmationRecapitulatif">Récapitulatif</button>\
             </span>\
         <% } %>\
+    '),
+
+    templateRecapitulatif: _.template('\
+        <div class="recapitulatifGlobal">\
+            Retourner voir les questions:\
+        </div>\
+        <button type="button" class="btn btn-default cloturer">Clôturer</button>\
     ')
 
 });
