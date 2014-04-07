@@ -7,7 +7,6 @@ var QuestionPaginationView = Backbone.View.extend({
     },
     initialize: function(options) {
         var self = this;
-        console.log(self.collection);
         self.route = options.route;
         this.template = self.constructor.template;
         this.collection.on('reset', this.render, this);
@@ -30,10 +29,10 @@ var QuestionPaginationView = Backbone.View.extend({
 
     saveResponse: function(e) {
         e.preventDefault();
+
         var self = this,
             responses = new Array(),
-            idQuestionCollection = parseInt(this.collection.page) - 1,
-            idQuestionTirage = this.collection.models[idQuestionCollection].attributes.idQuestionTirage,
+            idQuestionTirage = this.collection.models[0].attributes.idQuestionTirage,
             estMarquee = $('.inputQuestionMarquee').prop('checked') ? true : false;
 
         $('.elementReponse').each(function() {
@@ -42,6 +41,7 @@ var QuestionPaginationView = Backbone.View.extend({
             }
         });
 
+        // TODO : tester le localStorage pour savoir si il faut faire une requete
         // Requète ajax pour sauvegarder les réponses en base
         $.ajax({
             url: self.route,

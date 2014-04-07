@@ -39,9 +39,8 @@ var QuestionPaginatedCollection = Backbone.Paginator.clientPager.extend({
         this.totalRecords = models.length;
         this.totalPages = Math.ceil(this.totalRecords / this.displayPerPage);
 
-        start = 0;
-        stop = start + this.page * this.displayPerPage;
-        this.models = models.slice(start, stop);
+        start = parseInt(this.page) - 1;
+        this.models = models[start];
         this.reset(this.models);
 
     },
