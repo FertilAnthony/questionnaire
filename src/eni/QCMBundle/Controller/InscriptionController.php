@@ -42,15 +42,8 @@ class InscriptionController extends Controller
 		$inscriptionRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:Inscription');
 		$allInscription = $inscriptionRepository->findAll();
 
-		$listeInscriptions = [];
-		foreach($allInscription as $inscription) {
-			$listeInscriptions[] = [
-
-			];
-		}
-
 		return $this->render('eniQCMBundle:Inscription:list.html.twig', array(
-			'listeInscriptions' => $listeInscriptions
+			'listeInscriptions' => $allInscription
 		));
 	}
 
@@ -62,20 +55,30 @@ class InscriptionController extends Controller
     {
         // TODO tester affichage message erreur
     	$inscription = new Inscription();
+    	$inscription->setEtat(FALSE);
 
     	// Création du formulaire
     	$form = $this->createForm(new InscriptionType(), $inscription);
     	$form->handleRequest($request);
-    	//var_dump($form);
-    	if ($request->getMethod() == "POST") {
-	    	if ($form->isValid()) {
-	    		$em = $this->getDoctrine()->getManager();
-	    		$em->persist($inscription);
-	    		$em->flush();
 
-	    		// TODO : Rediriger vers la liste des inscription
-	    		return $this->redirect($this->generateUrl('inscription_list'));
-	    	}
+    	if ($request->getMethod() == "POST") {
+    		$utilisateurs = $form->get('utilisateur')->getData();
+    		$test = $form->get('test')->getData();
+    		$dureeValidite = $form->get('dureeValidite')->getData();
+			if ($form->isValid()) {  
+	    		foreach ($utilisateurs as $utilisateur) {
+	    			$inscription = new Inscription();
+	    			$inscription->setEtat(FALSE);
+	    			$inscription->setUtilisateur($utilisateur);
+	    			$inscription->setTest($test);
+	    			$inscription->setDureeValidite($dureeValidite);
+	    			  		
+		    		$em = $this->getDoctrine()->getManager();
+		    		$em->persist($inscription);
+		    		$em->flush();
+	    		}
+		    	return $this->redirect($this->generateUrl('inscription_list'));
+		    }
 	    }
 
         return $this->render('eniQCMBundle:Inscription:create.html.twig', array(

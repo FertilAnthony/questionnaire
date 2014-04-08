@@ -5,6 +5,7 @@ validateQuestionnaire = {
     responses: null,
     idQuestionTirage: null,
     estMarquee: null,
+    routeResultat: null,
 
     init: function() {
         $.ajax({
@@ -15,7 +16,7 @@ validateQuestionnaire = {
                 idQuestionTirage: this.idQuestionTirage,
                 estMarquee: this.estMarquee
             }
-        }).done(function(msg) {
+        }).done(function(data) {
 
         }).fail(function(msg) {
             alert('Une erreur innatendue est survenue, veuillez prévenir le formateur');

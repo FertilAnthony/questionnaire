@@ -1,5 +1,5 @@
 /*Ajout effet hover sur bouton*/
-.btn, .update-theme, .update-promo {
+.btn, .update-theme, .update-promo, .update-inscription {
 	-webkit-transition-property:background color;
 	-webkit-transition-duration:0.25s;
 	-webkit-transition-timing-function:linear;
@@ -108,39 +108,17 @@ th.theme, td.theme, th.promo, td.promo {
 #inscription_utilisateur {
 	height: 425px;
 }
-#createInscription .promotions, #createInscription .stagiaires {
-	height: 185px;
+.listeInscription {
+	margin-top: 40px;
 }
-#createInscription .addPromo {
-	position: absolute;
-	top: 330px;
-	left: 525px;
-	padding-left: 15px;
+.update-inscription {
+	font-size: 18px;
+	padding-left: 20px;
+	cursor: pointer;
 }
-#createInscription .removePromo {
-	position: absolute;
-	top: 420px;
-	left: 525px;
-	padding-right: 15px;
+.update-inscription:hover {
+	color: #47A447;
 }
-#createInscription .addUser {
-	position: absolute;
-	top: 565px;
-	left: 525px;
-	padding-left: 15px;
-}
-#createInscription .removeUser {
-	position: absolute;
-	top: 655px;
-	left: 525px;
-	padding-right: 15px;
-}
-#createInscription .label_inscrits {
-	float: none;
-	top: -470px;
-	left: 580px;
-}
-
 
 
 /* Stagiaire liste tests */

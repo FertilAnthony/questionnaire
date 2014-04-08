@@ -4,12 +4,12 @@ var QuestionPaginationView = Backbone.View.extend({
         'click a.save': 'saveResponse',
         'click a.prev': 'gotoPrev',
         'click a.next': 'gotoNext',
-        'click .recapitulatif': 'gotoRecapitulatif',
-        'click .cloturer': 'correctionTest'
+        'click .recapitulatif': 'gotoRecapitulatif'
     },
     initialize: function(options) {
         var self = this;
         self.route = options.route;
+        self.routeResultatTest = options.routeResultatTest;
         this.template = self.constructor.template;
         this.collection.on('reset', this.render, this);
         this.collection.on('add', this.render, this);
@@ -69,14 +69,14 @@ var QuestionPaginationView = Backbone.View.extend({
 
     gotoRecapitulatif: function(e) {
         e.preventDefault();
-        var self = this;
+        var self = this,
+            idInscription = window.location.href.slice(window.location.href.indexOf('passage_test/') + 12).split('/');
+        url = self.routeResultatTest + "/" + idInscription[1];
 
         self.template = self.constructor.templateRecapitulatif;
-        $('.container').html(self.template());
-    },
-
-    correctionTest: function() {
-
+        $('#question-list').empty();
+        $('.question').empty();
+        $('#question-pagination').html(self.template(url));
     }
 
 }, {
@@ -107,7 +107,7 @@ var QuestionPaginationView = Backbone.View.extend({
         <div class="recapitulatifGlobal">\
             Retourner voir les questions:\
         </div>\
-        <button type="button" class="btn btn-default cloturer">Clôturer</button>\
+        <a href="<%= url %>" class="btn btn-default cloturer">Clôturer</button>\
     ')
 
 });

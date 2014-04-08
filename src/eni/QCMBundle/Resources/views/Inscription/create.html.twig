@@ -13,10 +13,6 @@ Administration des inscriptions
 	<h2>Inscriptions à un test</h2> 
 	<form id="createInscription" action="{{ path('inscription_create') }}" method="post" role='form' class='form-horizontal'>
 		{{form_widget(form) }}
-		<button type="button" class="btn btn-success addPromo" title="Ajouter une promotion"><span class="glyphicon glyphicon-forward"></span></button>
-		<button type="button" class="btn btn-danger removePromo" title="Retirer une promotion"><span class="glyphicon glyphicon-backward"></span></button>
-		<button type="button" class="btn btn-success addUser" title="Ajouter un stagiaire"><span class="glyphicon glyphicon-forward"></span></button>
-		<button type="button" class="btn btn-danger removeUser" title="Retirer un stagiaire"><span class="glyphicon glyphicon-backward"></span></button>
 		<input type="submit" class="btn btn-primary" value="Valider">
 	</form>
 
@@ -25,28 +21,6 @@ Administration des inscriptions
 		$('.datepicker').datepicker({
 			format: 'dd/mm/yyyy',
 			language: 'fr'
-		});
-
-		// Surcharge css formulaire
-		$('#createInscription .promotions').parent().css({
-			"width": "40%",
-			"float": "none",
-			"margin-top": "35px"
-		});
-		$('#createInscription .stagiaires').parent().css({
-			"width": "40%",
-			"float": "none",
-			"margin-top": "35px"
-		});
-		$('#createInscription .inscrits').parent().css({
-			"width": "40%",
-			"float": "right",
-			'margin-top': '-460px'
-		});
-		$("label[for='.inscrits']").css({
-			"float": "none",
-			"top": "-470px",
-			"left": "580px"
 		});
 	});
 	</script>

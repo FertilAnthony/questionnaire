@@ -64,7 +64,7 @@
 							var collectionQuestions = new QuestionPaginatedCollection({{ questions|json_encode|raw }}, {
 								displayPerPage: 1
 							});
-							var paginationView = new QuestionPaginationView({collection: collectionQuestions, route:"{{ path('save-question') }}"});
+							var paginationView = new QuestionPaginationView({collection: collectionQuestions, route:"{{ path('save-question') }}", routeResultatTest: "{{ path('correction-test') }}"});
 							var questionsView = new QuestionAppView({collection: collectionQuestions});
 							
 							collectionQuestions.pager();
@@ -101,9 +101,6 @@
 
                             countdownManager.targetTime = new Date(endTest);
 							countdownManager.init(first);
-
-                            // Définit la route de validation du questionnaire
-                            validateQuestionnaire.route = "{{ path('correction_test') }}";
 							
 						});
 					</script>

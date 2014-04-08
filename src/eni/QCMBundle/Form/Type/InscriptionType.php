@@ -26,17 +26,9 @@ class InscriptionType extends AbstractType {
 					'attr' => array('class' => 'datepicker', 'size' => 10),
 					'required' => true
 				))
-				->add('promotions', 'entity', array(
-					'label' => 'Promotions',
-					'class' => 'eniQCMBundle:Promotion',
-					'mapped' => false,
-					'attr' => array('class' => 'promotions'),
-					'multiple' => true
-				))
-				->add('stagiaires', 'entity', array(
+				->add('utilisateur', 'entity', array(
 					'label' => 'Stagiaires',
 					'class' => 'eniQCMBundle:Utilisateur',
-					'mapped' => false,
 					'query_builder' => function(EntityRepository $er) {
         				return $er->createQueryBuilder('u')
         						->where('u.type != :formateur')
@@ -45,23 +37,9 @@ class InscriptionType extends AbstractType {
             					->setParameter('formateur', 'formateur');
     				},
     				'multiple' => true,
-    				'attr' => array('class' => 'stagiaires')
+    				'attr' => array('class' => 'stagiaires'),
+    				'required' => true
     			))
-    			->add('utilisateur', 'collection', array(
-    				'type' => 'select',
-    				'label' => 'Inscrits',
-    				'data' => null,
-    				'attr' => array('class' => 'inscrits'),
-    				'label_attr' => array('class' => 'label_inscrits')
-    			))
-    			/*->add('utilisateur', 'entity', array(
-    				'class' => 'eniQCMBundle:Utilisateur',
-    				'label' => 'Inscrits',
-    				'data' => null,
-    				'attr' => array('class' => 'inscrits'),
-    				'label_attr' => array('class' => 'label_inscrits'),
-    				'multiple' => true
-    			))*/
 					
 		;
 	}

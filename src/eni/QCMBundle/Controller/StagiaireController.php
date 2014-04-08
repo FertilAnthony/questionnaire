@@ -181,13 +181,90 @@ class StagiaireController extends Controller
 
     /**
      * @Route("/correction_test/{id}", name="correction-test", options={"expose"=true}, defaults={"id"=0})
-     * @Method({"POST"})
+     * @Template()
      */
     public function CorrectionTestAction(Request $request, Inscription $inscription) {
 
         // Récupération des réponses sauvegarder en base et calcul du résultat
         $questionTirageRepository = $this->getDoctrine()->getManager()->getRepository('eniQCMBundle:QuestionTirage');
         $listeQuestionsTirage = $questionTirageRepository->findByInscription($inscription->getId());
+        $resultatSection = [];
+        $resultatGlobal = 0;
+
+        // Récupération des sections
+        $test = $inscription->getTest();
+        $sections = $test->getSections();
+        $theme = null;
+        $totalQuestions = count($listeQuestionsTirage);
+        $seuil = round(($test->getSeuil()/100)*$totalQuestions);
+
+        // Définit le tableau de résultat par question
+        foreach ($sections as $section) {
+            $theme = $section->getTheme();
+
+            $resultatSection[$theme->getLibelle()] = [
+                'resultat' => 0,
+                'nbQuestions' => $section->getNbQuestion()
+            ];
+        }
+
+        // Pour chaque question du test on récupère les bonnes réponses pour les comparer avec les réponses du stagiaire
+        foreach ($listeQuestionsTirage as $questionTirage) {
+            $reponsesStagiaire = $questionTirage->getReponses();
+            $question = $questionTirage->getQuestion();
+            $reponses = $question->getReponses();
+
+            // Tableau pour vérifier si les stagiaires a toutes les bonnes réponses à une question multiple
+            $isBonneReponseStagiaire = [];
+            foreach ($reponses as $reponse) {
+                if ($reponse->getEstBonne()) {
+                    // On test que cette réponse se trouve bien dans les réponses du stagiaire
+                    if ($reponsesStagiaire->contains($reponse)) {
+                        $isBonneReponseStagiaire[] = TRUE;
+                    } else {
+                        $isBonneReponseStagiaire[] = FALSE;
+                    }
+                } else {
+                    if ($reponsesStagiaire->contains($reponse)) {
+                        $isBonneReponseStagiaire[] = FALSE;
+                    }
+                }
+            }
+
+            foreach ($sections as $section) {
+                $theme = $section->getTheme();
+
+                // Récupération des thèmes de la question pour 
+                $themesQuestion = $question->getThemes();
+                if ($themesQuestion->contains($theme)) {
+                    // Si la variable contient un seul faux alors la réponse est fausse
+                    if (!in_array(FALSE, $isBonneReponseStagiaire)) {
+                        $resultatSection[$theme->getLibelle()]['resultat'] = $resultatSection[ $theme->getLibelle()]['resultat'] + 1;
+                        $resultatGlobal += 1;
+                    }
+                }
+            }
+
+            // Suppression des données obselète
+            
+        }
+
+        // Sauvegarde du resultat en base, fin du test
+            $inscription->setResultat($resultatGlobal);
+            $inscription->setEtat(TRUE);
+            //$inscription->setQuestions(new ArrayCollection());
+
+            // On persite et on sauvegarde
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($questionTirage);
+            $em->flush();
+
+        return $this->render('eniQCMBundle:Stagiaire:resultat_test.html.twig',array(
+            'resultatSection' => $resultatSection,
+            'resultatGlobal' => $resultatGlobal,
+            'seuil' => $seuil,
+            'totalQuestions' => count($listeQuestionsTirage)));
+
     }
 
 }

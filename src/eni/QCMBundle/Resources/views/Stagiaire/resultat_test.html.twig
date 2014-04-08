@@ -1,0 +1,22 @@
+{% extends 'eniQCMBundle::layout.html.twig' %}
+
+{% block title %}
+	Résultat du test
+{% endblock %}
+
+{% block content %}
+
+	<h2>Résultat du test</h2>
+
+	<h3>Résultat par sections</h3>
+	{% for key, resultat in resultatSection %}
+		<li>Section {{ loop.index }} ( {{ key }} ) : {{ resultat.resultat }}/{{ resultat.nbQuestions }}</li>
+	{% endfor %}
+
+	<h3>Résultat global</h3>
+	<div class="resultatGlobal">
+		Le seuil pour valider ce test est de: {{ seuil }}/{{ totalQuestions }}<br />
+		Votre Résultat: {{ resultatGlobal }}/{{ totalQuestions }}
+	</div>
+
+{% endblock %}
