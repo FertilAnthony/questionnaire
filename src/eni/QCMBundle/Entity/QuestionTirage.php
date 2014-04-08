@@ -32,7 +32,7 @@ class QuestionTirage
     /**
      * @var Question
      *
-     * @ORM\OneToOne(targetEntity="Question")
+     * @ORM\ManyToOne(targetEntity="Question", cascade={"all"}, inversedBy="questionTirages")
      * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
      */
     private $question;

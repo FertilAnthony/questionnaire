@@ -53,6 +53,11 @@ class Question
      */
     private $reponses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="QuestionTirage", mappedBy="question", cascade={"persist"})
+     */
+    private $questionTirages;
+
     function __construct()
     {
         $this->themes = new ArrayCollection();
@@ -163,6 +168,34 @@ class Question
         }
     }
 
+    /**
+     * Get questions tirage
+     *
+     * @return \eni\QCMBundle\Entity\ArrayCollection
+     */
+    public function getQuestionTirages()
+    {
+        return $this->questionTirages;
+    }
 
+    /**
+     * @param QuestionTirage $questionTirages
+     */
+    public function addQuestionTirages(QuestionTirage $questionTirage)
+    {
+        if (!$this->questionTirages->contains($questionTirage)) {
+            $this->questionTirages->add($questionTirage);
+        }
+    }
+
+    /**
+     * @param Section $reponse
+     */
+    public function removeQuestionTirages(QuestionTirage $questionTirage)
+    {
+        if ($this->questionTirages->contains($questionTirage)) {
+            $this->questionTirages->removeElement($questionTirage);
+        }
+    }
 
 }
