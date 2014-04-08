@@ -196,7 +196,8 @@ class StagiaireController extends Controller
         $sections = $test->getSections();
         $theme = null;
         $totalQuestions = count($listeQuestionsTirage);
-        $seuil = round(($test->getSeuil()/100)*$totalQuestions);
+        $seuil = $test->getSeuil();
+        $nbBonneQuestions = round(($seuil/100)*$totalQuestions);
 
         // Définit le tableau de résultat par question
         foreach ($sections as $section) {
@@ -263,6 +264,7 @@ class StagiaireController extends Controller
             'resultatSection' => $resultatSection,
             'resultatGlobal' => $resultatGlobal,
             'seuil' => $seuil,
+            'nbBonneQuestions' => $nbBonneQuestions,
             'totalQuestions' => count($listeQuestionsTirage)));
 
     }
