@@ -11,13 +11,13 @@
 	<div class="jumbotron">
 		<h3>Résultat par sections</h3>
 		{% for key, resultat in resultatSection %}
-			<li>Section {{ loop.index }} ( {{ key }} ) : {{ resultat.resultat }}/{{ resultat.nbQuestions }}</li>
+			<li class="resultatSection">Section {{ loop.index }} ( {{ key }} ) : <span class="resultat">{{ resultat.resultat }}/{{ resultat.nbQuestions }}</span></li>
 		{% endfor %}
 
 		<h3>Résultat global</h3>
 		<div class="resultatGlobal">
-			Le seuil pour valider ce test est de: {{ nbBonneQuestions }}/{{ totalQuestions }}<br />
-			Votre Résultat: {{ resultatGlobal }}/{{ totalQuestions }}
+			Le seuil pour valider ce test est de: <span class="seuil resultat">{{ nbBonneQuestions }}/{{ totalQuestions }}</span><br />
+			Votre Résultat: <span class="resultat">{{ resultatGlobal }}/{{ totalQuestions }}</span>
 
 			{% if (resultatGlobal/totalQuestions)*100 >= seuil %}
 				<div class="progress">

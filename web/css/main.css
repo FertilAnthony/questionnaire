@@ -172,3 +172,8 @@ th.theme, td.theme, th.promo, td.promo {
 	display: block;
 	text-align: center;
 }
+
+.resultat {
+	font-weight: bold;
+	font-size: 1.2em;
+}
