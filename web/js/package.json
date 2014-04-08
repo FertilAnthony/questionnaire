@@ -1,0 +1,13 @@
+{
+    "name": "QuestionnaireEni",
+    "version": "1.0.0",
+    "dependencies": {
+        "socket.io": "latest",
+        "express": "latest",
+        "jade": "latest",
+        "mysql": "latest",
+        "ent": "latest"
+    },
+    "author": "developer",
+    "description": "Questionnaire pour les étudiants de l'ENI"
+}

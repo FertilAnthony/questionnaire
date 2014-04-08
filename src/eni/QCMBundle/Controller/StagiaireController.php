@@ -250,14 +250,14 @@ class StagiaireController extends Controller
         }
 
         // Sauvegarde du resultat en base, fin du test
-            $inscription->setResultat($resultatGlobal);
+           /* $inscription->setResultat($resultatGlobal);
             $inscription->setEtat(TRUE);
             //$inscription->setQuestions(new ArrayCollection());
 
             // On persite et on sauvegarde
             $em = $this->getDoctrine()->getManager();
             $em->persist($questionTirage);
-            $em->flush();
+            $em->flush();*/
 
         return $this->render('eniQCMBundle:Stagiaire:resultat_test.html.twig',array(
             'resultatSection' => $resultatSection,

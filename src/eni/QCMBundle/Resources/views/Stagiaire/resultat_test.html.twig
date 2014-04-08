@@ -11,6 +11,8 @@
 	<h3>Résultat par sections</h3>
 	{% for key, resultat in resultatSection %}
 		<li>Section {{ loop.index }} ( {{ key }} ) : {{ resultat.resultat }}/{{ resultat.nbQuestions }}</li>
+		{% if resultat.resultat/resultat.nbQuestions >  seuil/totalQuestions %}
+		{% endif %}
 	{% endfor %}
 
 	<h3>Résultat global</h3>

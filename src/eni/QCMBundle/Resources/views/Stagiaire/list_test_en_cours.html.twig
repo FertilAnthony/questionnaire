@@ -54,12 +54,14 @@ Liste des tests en cours
                         method: "POST"
                     }).done(function(msg) {
                         // TODO désactivé bouton
-                        btn.prop('disabled', true);
-                        btn.button('done');
-                        $('#confirmationTestPassage .modal-body').html('<p>Génération aléatoire des questions réalisée avec succès, le questionnaire va bientôt débuter.</p>');
-                        setTimeout(function() {
-                            window.location = "{{ path('passage-test') }}/" + id;
-                        }, 3000);
+                        //if (msg == "ok") {
+                            btn.prop('disabled', true);
+                            btn.button('done');
+                            $('#confirmationTestPassage .modal-body').html('<p>Génération aléatoire des questions réalisée avec succès, le questionnaire va bientôt débuter.</p>');
+                            setTimeout(function() {
+                                window.location = "{{ path('passage-test') }}/" + id;
+                            }, 3000);
+                        //}
                     }).fail(function(msg) {
                         // TODO désactivé bouton
                         btn.prop('disabled', true);

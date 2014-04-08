@@ -29,12 +29,16 @@ class ThemeRepository extends EntityRepository
         sort($ids);
 
         $idUsed = [];
-        for ($i = 0; $i < $nbQuestions; $i++) {
-            $randomId = rand($ids[0], $ids[$nbIds-1]);
-            while (in_array($randomId, $idUsed)) {
-                $randomId = rand(1, intval($nbQuestionsByTheme));
+        if ($nbIds >= $nbQuestions) {
+            $idUsed = $ids;
+        } else {
+            for ($i = 0; $i < $nbQuestions; $i++) {
+                $randomId = rand($ids[0], $ids[$nbIds-1]);
+                while (in_array($randomId, $idUsed)) {
+                    $randomId = rand($ids[0], $ids[$nbIds-1]);
+                }
+                $idUsed[] = $randomId;
             }
-            $idUsed[] = $randomId;
         }
 
         return $idUsed;
