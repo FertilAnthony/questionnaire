@@ -50,10 +50,19 @@ class StagiaireController extends Controller
 
 		$tests = [];
 		foreach ($inscriptionsUtilisateur as $inscription) {
+            // Nombre de question par test
+            $nbQuestions = 0;
+            $test = $inscription->getTest();
+            $sections = $test->getSections();
+            foreach ($sections as $section) {
+                $nbQuestions += $section->getNbQuestion();
+            }
+
 			$tests[] = [
 				'id' => $inscription->getId(),
-				'test' => $inscription->getTest(),
-				'tempsEcoule' => $inscription->getTempsEcoule()
+				'test' => $test,
+				'tempsEcoule' => $inscription->getTempsEcoule(),
+                'nbQuestions' => $nbQuestions
 			];
 		}
 
@@ -139,7 +148,8 @@ class StagiaireController extends Controller
 
         return $this->render('eniQCMBundle:Stagiaire:passage_test.html.twig',array(
             'questions' => $questions,
-            'dureeTest' => $dureeTest));
+            'dureeTest' => $dureeTest,
+            'idInscription' => $inscription->getId()));
     }
 
     /**

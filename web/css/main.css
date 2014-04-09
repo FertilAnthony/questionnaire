@@ -125,6 +125,15 @@ th.theme, td.theme, th.promo, td.promo {
 .testsStagiaire {
 	margin-top: 40px;
 }
+.testsStagiaire .description {
+	width: 60px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	o-text-overflow: ellipsis;	
+}
+.testsStagiaire .test {
+}
 
 /* questionnaire stagiaire */
 #question-pagination .nbQuestion {
@@ -176,4 +185,16 @@ th.theme, td.theme, th.promo, td.promo {
 .resultat {
 	font-weight: bold;
 	font-size: 1.2em;
+}
+
+.recapitulatifGlobal .questionRecap {
+	margin-bottom: 10px;
+	margin-left: 50px;
+	font-size: 1.1em;
+}
+.cloturer {
+	float: right;
+}
+.recapitulatifGlobal .recap {
+	margin-top: 20px;
 }

@@ -4,7 +4,8 @@ var QuestionPaginationView = Backbone.View.extend({
         'click a.save': 'saveResponse',
         'click a.prev': 'gotoPrev',
         'click a.next': 'gotoNext',
-        'click .recapitulatif': 'gotoRecapitulatif'
+        'click .recapitulatif': 'gotoRecapitulatif',
+        'click .cloturer': 'clearLocalStorage'
     },
     initialize: function(options) {
         var self = this;
@@ -69,14 +70,19 @@ var QuestionPaginationView = Backbone.View.extend({
 
     gotoRecapitulatif: function(e) {
         e.preventDefault();
-        var self = this,
-            idInscription = window.location.href.slice(window.location.href.indexOf('passage_test/') + 12).split('/');
-        url = self.routeResultatTest + "/" + idInscription[1];
+        var self = this;
 
         self.template = self.constructor.templateRecapitulatif;
         $('#question-list').empty();
-        $('.question').empty();
-        $('#question-pagination').html(self.template(url));
+        $('.question').html(self.template({
+            url: self.routeResultatTest
+        }));
+        $('#question-pagination').empty();
+    },
+
+    clearLocalStorage: function(e) {
+        e.preventDefault();
+        localStorage.clear();
     }
 
 }, {
@@ -105,7 +111,13 @@ var QuestionPaginationView = Backbone.View.extend({
 
     templateRecapitulatif: _.template('\
         <div class="recapitulatifGlobal">\
-            Retourner voir les questions:\
+            <h2>Retourner voir les questions:</h2>\
+            <div class="recap">\
+                <div class="questionRecap"> <a href="#">Toutes les questions (?)</a> </div>\
+                <div class="questionRecap"> <a href="#">Les questions non répondues (?)</a> </div>\
+                <div class="questionRecap"> <a href="#">Les questions marquées (?)</a> </div>\
+                <div class="questionRecap"> <a href="#">Les questions marquées ou non répondues (?)</a> </div>\
+            </div>\
         </div>\
         <a href="<%= url %>" class="btn btn-default cloturer">Clôturer</button>\
     ')

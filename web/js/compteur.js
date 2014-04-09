@@ -1,5 +1,6 @@
 countdownManager = {
     // Configuration
+    route: null,
     targetTime: null, // Date cible du compte à rebours (00:00:00)
     interval: null,
     displayElement: { // Elements HTML où sont affichés les informations
@@ -71,7 +72,7 @@ countdownManager = {
                 if (diff.hour == 0 && diff.min == 0 && diff.sec == 0) {
                     clearInterval(this.interval);
 
-                    //validateQuestionnaire.init();
+                    //window.location = this.route;
                 }
                 this.displayElement.hour.text(hour);
                 this.displayElement.min.text(min);

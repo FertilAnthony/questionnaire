@@ -65,7 +65,7 @@
 							var collectionQuestions = new QuestionPaginatedCollection({{ questions|json_encode|raw }}, {
 								displayPerPage: 1
 							});
-							var paginationView = new QuestionPaginationView({collection: collectionQuestions, route:"{{ path('save-question') }}", routeResultatTest: "{{ path('correction-test') }}"});
+							var paginationView = new QuestionPaginationView({collection: collectionQuestions, route:"{{ path('save-question') }}", routeResultatTest: "{{ path('correction-test') }}/{{ idInscription }}"});
 							var questionsView = new QuestionAppView({collection: collectionQuestions});
 							
 							collectionQuestions.pager();
@@ -101,9 +101,19 @@
                             }
 
                             countdownManager.targetTime = new Date(endTest);
+                            countdownManager.route = "{{ path('correction-test') }}/{{ idInscription }}";
 							countdownManager.init(first);
 
+                            // Connexion à socket.io pour détecter une déconnexion client
+                            var socket = io.connect('http://questionnaire.local:8080');
 
+                            // Connexion de l'utilisateur au chargement de la page
+                            socket.on('connect', function() {
+                                console.log('test');
+                            });
+                            socket.on('disconnect', function() {
+                                console.log('test');
+                            });
 							
 						});
 					</script>

@@ -11,9 +11,18 @@ Liste des tests en cours
 	<div class="list-group testsStagiaire">
 		{% for inscription in inscriptionsUtilisateur %}
 			{% if inscription.tempsEcoule != 0 %}
-				<a href="#" class="list-group-item" data-toggle="modal" data-target="#confirmationTestPassage" data-test="{{ inscription.test.getNom() }}" data-id="{{ inscription.id }}">{{ inscription.test.getNom() }}: {{ inscription.test.getDescription() }} (en cours)</a>
+				<a href="#" class="list-group-item test" data-toggle="modal" data-target="#confirmationTestPassage" data-test="{{ inscription.test.getNom() }}" data-id="{{ inscription.id }}">
+                    {{ inscription.test.getNom() }}: 
+                    <span class="description">{{ inscription.test.getDescription() }}</span>
+                    (en cours)
+                    <span class="badge"> {{ inscription.nbQuestions }} </span>
+                </a>
 			{% else %}
-				<a href="#" class="list-group-item" data-toggle="modal" data-target="#confirmationTestPassage" data-test="{{ inscription.test.getNom() }}" data-id="{{inscription.id }}">{{ inscription.test.getNom() }}: {{ inscription.test.getDescription() }}</a>
+				<a href="#" class="list-group-item test" data-toggle="modal" data-target="#confirmationTestPassage" data-test="{{ inscription.test.getNom() }}" data-id="{{inscription.id }}">
+                    {{ inscription.test.getNom() }}: 
+                    <span class="description">{{ inscription.test.getDescription() }}</span>
+                    <span class="badge"> {{ inscription.nbQuestions }} </span>
+                </a>
 			{% endif %}
 		{% endfor %}
     </div>
