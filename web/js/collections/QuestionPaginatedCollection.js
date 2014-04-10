@@ -14,13 +14,15 @@ var QuestionPaginatedCollection = Backbone.Paginator.clientPager.extend({
         this.displayPerPage = options.displayPerPage;
         this.previousPageQuestion = this.page;
     },
-    nextPage: function() {
+    nextPage: function(e) {
+        e.stopImmediatePropagation();
         var self = this;
         self.previousPageQuestion = self.page;
         self.page = ++self.page;
         self.pager();
     },
-    previousPage: function() {
+    previousPage: function(e) {
+        e.stopImmediatePropagation();
         var self = this;
         self.previousPageQuestion = self.page;
         self.page = --self.page || 1;
@@ -35,12 +37,19 @@ var QuestionPaginatedCollection = Backbone.Paginator.clientPager.extend({
             this.origModels = _.clone(this.models);
         }
 
+
+
+        if (this.firstModels === undefined) {
+            this.firstModels = _.clone(this.models);
+        }
+
         var start,
             stop,
             models = _.clone(this.origModels);
 
         this.totalRecords = models.length;
         this.totalPages = Math.ceil(this.totalRecords / this.displayPerPage);
+        this.maxRecords = this.firstModels.length;
 
         start = parseInt(this.page) - 1;
         this.models = models[start];

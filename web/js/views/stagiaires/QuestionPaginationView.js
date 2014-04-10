@@ -11,9 +11,10 @@ var QuestionPaginationView = Backbone.View.extend({
 
         self.route = options.route;
         self.routeResultatTest = options.routeResultatTest;
-        this.template = self.constructor.template;
-        this.collection.on('reset', this.render, this);
-        this.collection.on('add', this.render, this);
+        self.template = self.constructor.template;
+        self.collection.on('reset', this.render, this);
+        self.collection.on('add', this.render, this);
+
     },
     render: function() {
         this.$el.html(this.template(this.collection.info()));
@@ -22,12 +23,12 @@ var QuestionPaginationView = Backbone.View.extend({
     gotoPrev: function(e) {
         e.preventDefault();
         var self = this;
-        self.collection.previousPage();
+        self.collection.previousPage(e);
     },
     gotoNext: function(e) {
         e.preventDefault();
         var self = this;
-        self.collection.nextPage();
+        self.collection.nextPage(e);
     },
 
     saveResponse: function(e) {
@@ -60,12 +61,6 @@ var QuestionPaginationView = Backbone.View.extend({
             alert('Une erreur innatendue est survenue, veuillez prévenir le formateur');
         });
 
-        // On sauvegarde également dans le localStorage pour éviter de récupérer les réponses via une requète ajax
-        localStorage.setItem(idQuestionTirage, JSON.stringify({
-            'reponses': responses,
-            'estMarquee': estMarquee
-        }));
-
         // On modifie la collection
         self.collection.models[0].attributes.estMarquee = estMarquee;
         self.collection.models[0].attributes.reponsesStagiaire = responses;
@@ -79,8 +74,11 @@ var QuestionPaginationView = Backbone.View.extend({
             nbQuestionMarquee = 0,
             nbQuestionMarqueeNonRep = 0;
 
+        // Sauvegarde de la dernière question saisie
+        self.saveResponse(e);
+
         // Calcul des questions non répondu / marquées ou les 2
-        _.each(self.collection.origModels, function(model) {
+        _.each(self.collection.firstModels, function(model) {
             if (!model.attributes.reponsesStagiaire.length) {
                 nbQuestionNonRep++;
             }
@@ -96,7 +94,7 @@ var QuestionPaginationView = Backbone.View.extend({
         $('#question-list').empty();
         $('.question').html(self.templateRecap({
             url: self.routeResultatTest,
-            totalRecords: self.collection.info().totalRecords,
+            totalRecords: self.collection.maxRecords,
             nbQuestionNonRep: nbQuestionNonRep,
             nbQuestionMarquee: nbQuestionMarquee,
             nbQuestionMarqueeNonRep: nbQuestionMarqueeNonRep

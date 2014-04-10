@@ -4,9 +4,9 @@ var QuestionAppView = Backbone.View.extend({
     initialize: function(options) {
         var collection = this.collection;
 
-        self.route = options.route;
-        self.routeResultatTest = options.routeResultatTest;
-        self.data = options.data;
+        this.route = options.route;
+        this.routeResultatTest = options.routeResultatTest;
+        this.data = options.data;
         collection.on('add', this.addOne, this);
         collection.on('reset', this.addAll, this);
         collection.on('all', this.render, this);
@@ -16,7 +16,6 @@ var QuestionAppView = Backbone.View.extend({
         this.collection.each(this.addOne, this);
     },
     addOne: function(item) {
-
         var view = new QuestionView({
             model: item,
             page: this.collection.page,

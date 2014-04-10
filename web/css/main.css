@@ -76,7 +76,7 @@ th.theme, td.theme, th.promo, td.promo {
 }
 
 /* Test / Question */
-#createTest, #createQuestion, .test, .question {
+#createTest, #createQuestion, .test, .questions {
 	margin-top: 40px;
 }
 .createTest, .createQuestion {
@@ -161,10 +161,10 @@ th.theme, td.theme, th.promo, td.promo {
 	top: 10px;
 }
 
-.question .enonceQuestion {
+.questions .enonceQuestion {
 	margin-left: -25px;
 }
-.question .reponsesQuestion {
+.questions .reponsesQuestion {
 	margin-left: 10px;
 }
 .recapitulatif {
