@@ -92,11 +92,11 @@ var QuestionPaginationView = Backbone.View.extend({
             }
         });
 
-        self.template = self.constructor.templateRecapitulatif;
+        self.templateRecap = self.constructor.templateRecapitulatif;
         $('#question-list').empty();
-        $('.question').html(self.template({
+        $('.question').html(self.templateRecap({
             url: self.routeResultatTest,
-            collection: self.collection,
+            totalRecords: self.collection.info().totalRecords,
             nbQuestionNonRep: nbQuestionNonRep,
             nbQuestionMarquee: nbQuestionMarquee,
             nbQuestionMarqueeNonRep: nbQuestionMarqueeNonRep
@@ -132,10 +132,10 @@ var QuestionPaginationView = Backbone.View.extend({
         <div class="recapitulatifGlobal">\
             <h2>Retourner voir les questions:</h2>\
             <div class="recap">\
-                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="allQuestions">Toutes les questions (<%= collection.info().totalRecords %>/<%= collection.info().totalRecords %>)</a> </div>\
-                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="questionsNonRep">Les questions non répondues (<%= nbQuestionNonRep %>/<%= collection.info().totalRecords %>)</a> </div>\
-                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="questionsMarquees">Les questions marquées (<%= nbQuestionMarquee %>/<%= collection.info().totalRecords %>)</a> </div>\
-                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="questionsNonRepMarquees">Les questions marquées ou non répondues (<%= nbQuestionMarqueeNonRep %>/<%= collection.info().totalRecords %>)</a> </div>\
+                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="allQuestions">Toutes les questions (<%= totalRecords %>/<%= totalRecords %>)</a> </div>\
+                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="questionsNonRep">Les questions non répondues (<%= nbQuestionNonRep %>/<%= totalRecords %>)</a> </div>\
+                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="questionsMarquees">Les questions marquées (<%= nbQuestionMarquee %>/<%= totalRecords %>)</a> </div>\
+                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="questionsNonRepMarquees">Les questions marquées ou non répondues (<%= nbQuestionMarqueeNonRep %>/<%= totalRecords %>)</a> </div>\
             </div>\
         </div>\
         <a href="<%= url %>" class="btn btn-default cloturer">Clôturer</button>\

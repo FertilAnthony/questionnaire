@@ -48,6 +48,7 @@ var QuestionView = Backbone.View.extend({
     },
 
     createNewPagination: function(e) {
+        e.stopImmediatePropagation();
         var $target = $(e.target),
             self = this;
 
@@ -63,11 +64,13 @@ var QuestionView = Backbone.View.extend({
                     route: self.route,
                     routeResultatTest: self.routeResultatTest
                 });
-                var questionsView = new QuestionAppView({
+                var questionsAppView = new QuestionAppView({
                     collection: paginatedCollection,
                     route: self.route,
-                    routeResultatTest: self.routeResultatTest
+                    routeResultatTest: self.routeResultatTest,
+                    data: self.data
                 });
+
                 paginatedCollection.pager();
 
                 break;
