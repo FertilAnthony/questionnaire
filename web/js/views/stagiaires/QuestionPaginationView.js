@@ -4,11 +4,11 @@ var QuestionPaginationView = Backbone.View.extend({
         'click a.save': 'saveResponse',
         'click a.prev': 'gotoPrev',
         'click a.next': 'gotoNext',
-        'click .recapitulatif': 'gotoRecapitulatif',
-        'click .cloturer': 'clearLocalStorage'
+        'click .recapitulatif': 'gotoRecapitulatif'
     },
     initialize: function(options) {
         var self = this;
+
         self.route = options.route;
         self.routeResultatTest = options.routeResultatTest;
         this.template = self.constructor.template;
@@ -35,7 +35,7 @@ var QuestionPaginationView = Backbone.View.extend({
 
         var self = this,
             responses = new Array(),
-            idQuestionTirage = this.collection.models[0].attributes.idQuestionTirage,
+            idQuestionTirage = self.collection.models[0].attributes.idQuestionTirage,
             estMarquee = $('.inputQuestionMarquee').prop('checked') ? true : false;
 
         $('.elementReponse').each(function() {
@@ -66,23 +66,42 @@ var QuestionPaginationView = Backbone.View.extend({
             'estMarquee': estMarquee
         }));
 
+        // On modifie la collection
+        self.collection.models[0].attributes.estMarquee = estMarquee;
+        self.collection.models[0].attributes.reponsesStagiaire = responses;
+
     },
 
     gotoRecapitulatif: function(e) {
-        e.preventDefault();
-        var self = this;
+        e.stopImmediatePropagation();
+        var self = this,
+            nbQuestionNonRep = 0,
+            nbQuestionMarquee = 0,
+            nbQuestionMarqueeNonRep = 0;
+
+        // Calcul des questions non répondu / marquées ou les 2
+        _.each(self.collection.origModels, function(model) {
+            if (!model.attributes.reponsesStagiaire.length) {
+                nbQuestionNonRep++;
+            }
+            if (model.attributes.estMarquee) {
+                nbQuestionMarquee++;
+            }
+            if ((!model.attributes.reponsesStagiaire.length) || (model.attributes.estMarquee)) {
+                nbQuestionMarqueeNonRep++;
+            }
+        });
 
         self.template = self.constructor.templateRecapitulatif;
         $('#question-list').empty();
         $('.question').html(self.template({
-            url: self.routeResultatTest
+            url: self.routeResultatTest,
+            collection: self.collection,
+            nbQuestionNonRep: nbQuestionNonRep,
+            nbQuestionMarquee: nbQuestionMarquee,
+            nbQuestionMarqueeNonRep: nbQuestionMarqueeNonRep
         }));
         $('#question-pagination').empty();
-    },
-
-    clearLocalStorage: function(e) {
-        e.preventDefault();
-        localStorage.clear();
     }
 
 }, {
@@ -113,10 +132,10 @@ var QuestionPaginationView = Backbone.View.extend({
         <div class="recapitulatifGlobal">\
             <h2>Retourner voir les questions:</h2>\
             <div class="recap">\
-                <div class="questionRecap"> <a href="#">Toutes les questions (?)</a> </div>\
-                <div class="questionRecap"> <a href="#">Les questions non répondues (?)</a> </div>\
-                <div class="questionRecap"> <a href="#">Les questions marquées (?)</a> </div>\
-                <div class="questionRecap"> <a href="#">Les questions marquées ou non répondues (?)</a> </div>\
+                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="allQuestions">Toutes les questions (<%= collection.info().totalRecords %>/<%= collection.info().totalRecords %>)</a> </div>\
+                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="questionsNonRep">Les questions non répondues (<%= nbQuestionNonRep %>/<%= collection.info().totalRecords %>)</a> </div>\
+                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="questionsMarquees">Les questions marquées (<%= nbQuestionMarquee %>/<%= collection.info().totalRecords %>)</a> </div>\
+                <div class="questionRecap"> <a href="#" class="linkQuestionRecap" data-question="questionsNonRepMarquees">Les questions marquées ou non répondues (<%= nbQuestionMarqueeNonRep %>/<%= collection.info().totalRecords %>)</a> </div>\
             </div>\
         </div>\
         <a href="<%= url %>" class="btn btn-default cloturer">Clôturer</button>\

@@ -133,12 +133,20 @@ class StagiaireController extends Controller
                     'libelle' => $reponse->getLibelle()
                 ];
             }
+
+            $reponsesStagiaire = [];
+            $reponsesTirage = $questionTirage->getReponses();
+            foreach ($reponsesTirage as $reponseTirage) {
+                $reponsesStagiaire[] = $reponseTirage->getId();
+            }
             $questions[] =  [
                 'id' => $question->getId(),
                 'enonce' => $question->getEnonce(),
                 'type' => $question->getType(),
                 'reponses' => $libelleReponses,
-                'idQuestionTirage' => $questionTirage->getId()
+                'idQuestionTirage' => $questionTirage->getId(),
+                'estMarquee' => $questionTirage->getEstMarquee(),
+                'reponsesStagiaire' => $reponsesStagiaire
             ];
         }
 
