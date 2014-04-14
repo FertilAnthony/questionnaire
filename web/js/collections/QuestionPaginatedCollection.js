@@ -37,8 +37,6 @@ var QuestionPaginatedCollection = Backbone.Paginator.clientPager.extend({
             this.origModels = _.clone(this.models);
         }
 
-
-
         if (this.firstModels === undefined) {
             this.firstModels = _.clone(this.models);
         }

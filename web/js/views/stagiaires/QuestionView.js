@@ -51,19 +51,14 @@ var QuestionView = Backbone.View.extend({
         var $target = $(e.target),
             self = this;
 
-        //self.firstModels = _.clone(self.collection.origModels);
-
         switch ($target.data('question')) {
             case 'allQuestions':
-
                 self.collection.reset(self.collection.firstModels);
                 self.collection.origModels = self.collection.firstModels;
                 self.collection.page = 1;
                 self.collection.pager();
-
                 break;
             case 'questionsNonRep':
-
                 // Récupération des questions sans réponses
                 self.questionNonRep = new Array();
                 _.each(self.collection.firstModels, function(model) {
@@ -71,12 +66,10 @@ var QuestionView = Backbone.View.extend({
                         self.questionNonRep.push(model);
                     }
                 });
-
                 self.collection.reset(self.questionNonRep);
                 self.collection.origModels = self.questionNonRep;
                 self.collection.page = 1;
                 self.collection.pager();
-
                 break;
             case 'questionsMarquees':
                 // Récupération des questions marquées
@@ -86,12 +79,10 @@ var QuestionView = Backbone.View.extend({
                         self.questionMarquee.push(model);
                     }
                 });
-
                 self.collection.reset(self.questionMarquee);
                 self.collection.origModels = self.questionMarquee;
                 self.collection.page = 1;
                 self.collection.pager();
-
                 break;
             case 'questionsNonRepMarquees':
                 // Récupération des questions marquées/non rep
@@ -101,32 +92,12 @@ var QuestionView = Backbone.View.extend({
                         self.questionMarqueeNonRep.push(model);
                     }
                 });
-
                 self.collection.reset(self.questionMarqueeNonRep);
                 self.collection.origModels = self.questionMarqueeNonRep;
                 self.collection.page = 1;
                 self.collection.pager();
-
                 break;
         }
-    },
-
-    createPagination: function(collection) {
-        var paginatedCollection = new QuestionPaginatedCollection(
-            collection, {
-                displayPerPage: 1
-            });
-        var paginationView = new QuestionPaginationView({
-            collection: paginatedCollection,
-            route: this.route,
-            routeResultatTest: this.routeResultatTest
-        });
-        var questionsView = new QuestionAppView({
-            collection: paginatedCollection,
-            route: this.route,
-            routeResultatTest: this.routeResultatTest
-        });
-        paginatedCollection.pager();
     }
 
 }, {
